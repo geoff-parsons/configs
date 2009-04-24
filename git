@@ -1,0 +1,7 @@
+[user]
+	name = Geoff Parsons
+	email = geoffrey.parsons@gmail.com
+	
+[alias]
+	co = checkout
+	stat = status

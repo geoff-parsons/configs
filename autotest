@@ -1,0 +1,14 @@
+module Autotest::Growl
+  def self.growl title, msg, img, pri=0, stick="" 
+    system "growlnotify -n autotest --image #{img} -p #{pri} -m #{msg.inspect} #{title} #{stick}" 
+  end
+
+  Autotest.add_hook :ran_command do |at|
+    tests, assertions, failures, errors = at.results.last.match(/(\d+) tests, (\d+) assertions, (\d+) failures, (\d+) errors/).to_a[1..4].collect {|i|i.to_i}
+    if errors > 0 or failures > 0
+      growl "Test Results", "#{errors} errors & #{failures} failures", '~/Library/autotest/fail.png', 2 #, "-s" 
+    else
+      growl "Test Results", "#{tests} tests & #{assertions} assertions", '~/Library/autotest/pass.png'
+    end
+  end
+end
