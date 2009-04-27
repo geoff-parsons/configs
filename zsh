@@ -3,14 +3,26 @@
 ##    zsh Options    ##
 #######################
 
-setopt PROMPT_SUBST
-export PROMPT="(%{$reset_color%}%n@%m%) (%1c%) %# "
+# Completion
+zstyle ':completion:*' completer _expand _complete
+autoload -Uz compinit
+compinit
+# Allow tab completion in the middle of a word
+setopt COMPLETE_IN_WORD
+
+autoload -Uz colors
+colors
+
+# Prompt Options
+setopt prompt_subst
+PROMPT=$'%{$reset_color%}(%n@%m) (%2c) %{$(git-prompt)%}%% '
 
 # Auto-cd: "/usr/bin" is the same as "cd /usr/bin"
 setopt AUTO_CD
 
 # beeps are annoying
 setopt NO_BEEP
+
 setopt EXTENDED_GLOB
 
 
@@ -54,12 +66,13 @@ export MANPATH="$MANPATH:/usr/X11/man"
 ##      Aliases      ##
 #######################
 
-alias ls="ls -pG"
+alias ls="ls -phG"
 alias ll="ls -l"
 alias la="ls -a"
 alias lr="ls -r"
 alias grep="grep --color"
 alias calc="open /Applications/Calculator.app"
+alias gitx='/Applications/GitX.app/Contents/Resources/gitx'
 
 
 #######################
@@ -72,6 +85,16 @@ export SAVEHIST=1000
 export SHARE_HISTORY=1
 export EXTENDED_HISTORY=1
 export HIST_EXPIRE_DUPS_FIRST=1
+setopt appendhistory
+
+
+#######################
+##      Editors      ##
+#######################
+
+export EDITOR="mate"
+export SVN_EDITOR="pico"
+export GIT_EDITOR="pico"
 
 
 #######################
@@ -91,27 +114,6 @@ fi
 # capistrano
 alias cap1="cap _1.4.1_"
 
-_rake_does_task_list_need_generating () {
-  if [ ! -f .rake_tasks ]; then return 0;
-  else
-    accurate=$(stat -f%m .rake_tasks)
-    changed=$(stat -f%m Rakefile)
-    return $(expr $accurate '>=' $changed)
-  fi
-}
- 
-_rake () {
-  if [ -f Rakefile ]; then
-    if _rake_does_task_list_need_generating; then
-      echo "\nGenerating .rake_tasks..." > /dev/stderr
-      rake --silent --tasks | cut -d " " -f 2 > .rake_tasks
-    fi
-    compadd `cat .rake_tasks`
-  fi
-}
-
-compctl -K _rake rake
-
 
 #######################
 ##        Java       ##
@@ -125,9 +127,33 @@ export CLASSPATH="$CLASSPATH:/Library/Java/Extensions/httpunit.jar"
 
 
 #######################
-##      Editors      ##
+##        Git        ##
 #######################
 
-export EDITOR="mate"
-export SVN_EDITOR="pico"
+if [[ -x `which git` ]]; then
+  
+  function git-branch-name () {
+    git branch 2> /dev/null | grep ^\* | sed s/^\*\ //
+  }
+  
+  function git-dirty () {
+    git status | grep "nothing to commit (working directory clean)"
+    echo $?
+  }
+  
+  function git-prompt() {
+    branch=$(git-branch-name)
+    if [[ x$branch != x && $branch != '' ]]; then
+      dirty_color=$fg[green]
+      if [[ $(git-dirty) = 1 ]] { dirty_color=$fg[red] }
+      [ x$branch != x ] && echo "[%{$dirty_color%}$branch$(git-stash-count)%{$reset_color%}] "
+    fi
+  }
+  
+  function git-stash-count() {
+    branch=$(git-branch-name)
+    count=$(git stash list | grep "${branch}" | wc -l | awk '{print $1}')
+    [ $count != 0 ] && echo " ($count)"
+  }
 
+fi
