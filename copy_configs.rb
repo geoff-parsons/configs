@@ -12,5 +12,5 @@ FileUtils.copy('./autotest', '../.autotest')
 FileUtils.copy('./git', '../.gitconfig')
 
 # Subversion
-FileUtils.mkdir('../.subversion')
+FileUtils.mkdir('../.subversion') unless File.exists?('../.subversion')
 FileUtils.copy('./subversion', '../.subversion/config')
