@@ -15,7 +15,7 @@ colors
 
 # Prompt Options
 setopt prompt_subst
-PROMPT=$'%{$reset_color%}(%n@%m) (%2c) %{$(git-prompt)%}%% '
+export PROMPT=$'%{$reset_color%}(%n@%m) (%2c) %{$(git-prompt)%}%% '
 
 # Auto-cd: "/usr/bin" is the same as "cd /usr/bin"
 setopt AUTO_CD
@@ -133,7 +133,7 @@ export CLASSPATH="$CLASSPATH:/Library/Java/Extensions/httpunit.jar"
 if [[ -x `which git` ]]; then
   
   function git-branch-name () {
-    git branch 2> /dev/null | grep ^\* | sed s/^\*\ //
+    git branch 2> /dev/null | grep "^\*" | sed "s/^\*\ //"
   }
   
   function git-dirty () {
