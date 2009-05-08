@@ -1,16 +1,21 @@
 require 'fileutils'
+require 'etc' 
+
+home_dir = Etc.getpwuid.dir
+dir = File.dirname(__FILE__)
 
 # zsh
-FileUtils.copy('./zsh', '../.zshrc')
+puts "Existing zsh profile (.zshenv) may conflict with new profile." if File.exists?(home_dir + '/.zshenv')
+FileUtils.copy(dir + '/zsh', home_dir + '/.zshrc')
 
 # Ruby
-FileUtils.copy('./irb', '../.irbrc')
-FileUtils.copy('./ruby_gems', '../.gemrc')
-FileUtils.copy('./autotest', '../.autotest')
+FileUtils.copy(dir + '/irb', home_dir + '/.irbrc')
+FileUtils.copy(dir + '/ruby_gems', home_dir + '/.gemrc')
+FileUtils.copy(dir + '/autotest', home_dir + '/.autotest')
 
 # Git
-FileUtils.copy('./git', '../.gitconfig')
+FileUtils.copy(dir + '/git', home_dir + '/.gitconfig')
 
 # Subversion
-FileUtils.mkdir('../.subversion') unless File.exists?('../.subversion')
-FileUtils.copy('./subversion', '../.subversion/config')
+FileUtils.mkdir(home_dir + '/.subversion') unless File.exists?(home_dir + '/.subversion')
+FileUtils.copy(dir + '/subversion', home_dir + '/.subversion/config')
