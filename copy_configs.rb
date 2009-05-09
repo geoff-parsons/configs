@@ -15,6 +15,9 @@ FileUtils.copy(dir + '/autotest', home_dir + '/.autotest')
 
 # Git
 FileUtils.copy(dir + '/git', home_dir + '/.gitconfig')
+FileUtils.copy(dir + '/git_ignores', home_dir + '/.gitignore')
+# see if we have lynx, if so set it as the default web browser for git help --web
+system('git config --global web.browser lynx') if `which lynx`.length > 0
 
 # Subversion
 FileUtils.mkdir(home_dir + '/.subversion') unless File.exists?(home_dir + '/.subversion')

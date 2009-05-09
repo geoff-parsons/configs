@@ -1,7 +1,21 @@
 [user]
-	name = Geoff Parsons
+	name  = Geoff Parsons
 	email = geoffrey.parsons@gmail.com
 	
 [alias]
-	co = checkout
-	stat = status
+	co     = checkout
+	stat   = status
+	up     = pull
+	update = pull
+
+[core]
+	# setup some default ignores
+	excludesfile = ~/.gitignore
+
+[color]
+	# use colour for everything if available
+	ui = auto
+
+[log]
+	# human-readable dates; ex: "2 hours ago"
+	date = relative
