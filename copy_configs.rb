@@ -5,10 +5,19 @@ home_dir = Etc.getpwuid.dir
 dir = File.dirname(__FILE__)
 
 # zsh
+if `which mate`.length == 0
+  puts "You appear to not have TextMate installed or don't have the shell script installed with it:"
+  puts "  Some settings in ~/.zshrc will not work."
+end
 FileUtils.copy(dir + '/zsh', home_dir + '/.zshrc')
 FileUtils.ln_s(home_dir + '/.zshrc', home_dir + '/.zshenv', :force => true)
 
 # Ruby
+if `which gem`.length == 0
+  puts "You appear to not have ruby gems installed:"
+  puts "  IRB config will not work without removing the line \"require 'rubygems'\""
+  puts "  Some config files may be irrelevant."
+end
 FileUtils.copy(dir + '/irb', home_dir + '/.irbrc')
 FileUtils.copy(dir + '/ruby_gems', home_dir + '/.gemrc')
 FileUtils.copy(dir + '/autotest', home_dir + '/.autotest')
