@@ -5,8 +5,8 @@ home_dir = Etc.getpwuid.dir
 dir = File.dirname(__FILE__)
 
 # zsh
-puts "Existing zsh profile (.zshenv) may conflict with new profile." if File.exists?(home_dir + '/.zshenv')
 FileUtils.copy(dir + '/zsh', home_dir + '/.zshrc')
+FileUtils.ln_s(home_dir + '/.zshrc', home_dir + '/.zshenv', :force => true)
 
 # Ruby
 FileUtils.copy(dir + '/irb', home_dir + '/.irbrc')
