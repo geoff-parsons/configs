@@ -92,9 +92,10 @@ setopt appendhistory
 ##      Editors      ##
 #######################
 
-export EDITOR="mate"
+export EDITOR="mate -w"
 export SVN_EDITOR="pico"
 export GIT_EDITOR="pico"
+export LESSEDIT='mate -l %lm %f'
 
 
 #######################
