@@ -133,11 +133,11 @@ export CLASSPATH="$CLASSPATH:/Library/Java/Extensions/httpunit.jar"
 
 if [[ -x `which git` ]]; then
   
-  function git-branch-name () {
+  function git-branch-name() {
     git branch 2> /dev/null | grep "^\*" | sed "s/^\*\ //"
   }
   
-  function git-dirty () {
+  function git-dirty() {
     git status | grep "nothing to commit (working directory clean)"
     echo $?
   }
@@ -158,3 +158,13 @@ if [[ -x `which git` ]]; then
   }
 
 fi
+
+
+#######################
+##        Mac        ##
+#######################
+
+function volume() {
+  `osascript -e "set volume $1"`
+}
+alias mute='volume 0'
