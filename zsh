@@ -120,11 +120,8 @@ alias cap1="cap _1.4.1_"
 ##        Java       ##
 #######################
 
-export CLASSPATH="."
-# JUnit (aliased to the latest version)
-export CLASSPATH="$CLASSPATH:/Library/Java/Extensions/junit.jar"
-# HTTPUnit
-export CLASSPATH="$CLASSPATH:/Library/Java/Extensions/httpunit.jar"
+export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
+export ANT_HOME="/usr/share/ant"
 
 
 #######################
