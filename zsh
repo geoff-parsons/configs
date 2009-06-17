@@ -30,7 +30,7 @@ setopt EXTENDED_GLOB
 ##        Path       ##
 #######################
 
-export PATH=".:/Users/gparsons/bin:/usr/local/bin:/usr/local/sbin"
+export PATH=".:${HOME}/bin:/usr/local/bin:/usr/local/sbin"
 # Ports installs
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 # Default path
