@@ -30,7 +30,11 @@ setopt EXTENDED_GLOB
 ##        Path       ##
 #######################
 
-export PATH=".:${HOME}/bin:/usr/local/bin:/usr/local/sbin"
+export PATH=".:${HOME}/bin"
+# /usr/local
+export PATH="$PATH:/usr/local/bin:/usr/local/sbin"
+# User Gems
+export PATH="$PATH:${HOME}/.gem/ruby/1.8/bin"
 # Ports installs
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 # Default path
