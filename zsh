@@ -76,7 +76,6 @@ alias la="ls -a"
 alias lr="ls -r"
 alias grep="grep --color"
 alias calc="open /Applications/Calculator.app"
-alias gitx='/Applications/GitX.app/Contents/Resources/gitx'
 
 
 #######################
