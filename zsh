@@ -75,8 +75,13 @@ alias ll="ls -l"
 alias la="ls -a"
 alias lr="ls -r"
 alias grep="grep --color"
-alias calc="open /Applications/Calculator.app"
 
+if [[ -e '/Applications/Calculator.app' ]]; then
+  alias calc="open /Applications/Calculator.app"
+fi
+if [[ -d '/Applications/VLC.app' ]]; then
+  alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
+fi
 
 #######################
 ##      History      ##
