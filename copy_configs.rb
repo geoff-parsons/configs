@@ -38,3 +38,7 @@ if `which mate`.length == 0
 end
 FileUtils.copy(dir + '/zsh', home_dir + '/.zshrc')
 FileUtils.ln_s(home_dir + '/.zshrc', home_dir + '/.zshenv', :force => true)
+
+if `which pbcopy`.length == 0 and `which xsel`.length == 0
+  puts "You do not appear to have the pbcopy command; consider install xsel."
+end

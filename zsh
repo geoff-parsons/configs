@@ -76,6 +76,10 @@ alias la="ls -a"
 alias lr="ls -r"
 alias grep="grep --color"
 
+if [[ !`which pbcopy` && `which xsel` ]]; then
+  alias pbcopy="xsel --clipboard"
+fi
+
 if [[ -e '/Applications/GitX.app' ]]; then
   alias gitx="/Applications/GitX.app/Contents/Resources/gitx"
 fi
