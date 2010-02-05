@@ -76,7 +76,12 @@ alias la="ls -a"
 alias lr="ls -r"
 alias grep="grep --color"
 
-if [[ !`which pbcopy` && `which xsel` ]]; then
+
+if ! (which pbcopy > /dev/null); then
+  echo "YOU DON'T HAVE PBCOPY"
+  if which xsel > /dev/null; then
+    echo "YOU HAVE XSEL"
+  fi
   alias pbcopy="xsel --clipboard"
 fi
 
@@ -107,10 +112,14 @@ setopt appendhistory
 ##      Editors      ##
 #######################
 
-export EDITOR="mate -w"
+if which mate > /dev/null; then
+  export EDITOR="mate -w"
+  export LESSEDIT='mate -l %lm %f'
+else
+  export EDITOR="pico"
+fi
 export SVN_EDITOR="pico"
 export GIT_EDITOR="pico"
-export LESSEDIT='mate -l %lm %f'
 
 
 #######################
