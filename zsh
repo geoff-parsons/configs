@@ -78,11 +78,9 @@ alias grep="grep --color"
 
 
 if ! (which pbcopy > /dev/null); then
-  echo "YOU DON'T HAVE PBCOPY"
   if which xsel > /dev/null; then
-    echo "YOU HAVE XSEL"
+    alias pbcopy="xsel --clipboard"
   fi
-  alias pbcopy="xsel --clipboard"
 fi
 
 if [[ -e '/Applications/GitX.app' ]]; then
