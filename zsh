@@ -137,6 +137,11 @@ fi
 # capistrano
 alias cap1="cap _1.4.1_"
 
+# RVM
+if [[ -s ~/.rvm/scripts/rvm ]] ; then
+  source ~/.rvm/scripts/rvm
+fi
+
 
 #######################
 ##        Java       ##
