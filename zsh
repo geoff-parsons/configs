@@ -142,7 +142,13 @@ alias cap1="cap _1.4.1_"
 ##        Java       ##
 #######################
 
-export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
+if [ -d /usr/lib/jvm/java-6-sun/jre ]; then
+  # Ubuntu with Java 6
+  export JAVA_HOME="/usr/lib/jvm/java-6-sun/jre"
+elif [ -d /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home ]; then
+  # OS X
+  export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
+fi
 export ANT_HOME="/usr/share/ant"
 export MAVEN_HOME="/usr/share/maven"
 
