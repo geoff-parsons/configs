@@ -75,7 +75,7 @@ alias ll="ls -l"
 alias la="ls -a"
 alias lr="ls -r"
 alias grep="grep --color"
-
+alias df="df -H"
 
 if ! (which pbcopy > /dev/null); then
   if which xsel > /dev/null; then
