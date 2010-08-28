@@ -70,7 +70,7 @@ export MANPATH="$MANPATH:/usr/X11/man"
 ##      Aliases      ##
 #######################
 
-alias ls="ls -hG --color"
+alias ls="ls -hG"
 alias ll="ls -l"
 alias la="ls -a"
 alias lr="ls -r"
