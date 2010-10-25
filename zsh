@@ -70,7 +70,11 @@ export MANPATH="$MANPATH:/usr/X11/man"
 ##      Aliases      ##
 #######################
 
-alias ls="ls -hG"
+if ls --color >/dev/null 2>/dev/null; then
+  alias ls="ls --color -h"
+else
+  alias ls="ls -hG"
+fi
 alias ll="ls -l"
 alias la="ls -a"
 alias lr="ls -r"
