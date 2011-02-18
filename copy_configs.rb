@@ -3,6 +3,15 @@ require 'etc'
 
 home_dir = Etc.getpwuid.dir
 dir = File.dirname(__FILE__)
+os = case `uname`
+       when /linux/i
+         :linux
+       when /darwin/i
+         :OSX
+       else
+         :WTF
+     end
+
 
 # Ruby
 if `which gem`.length == 0
@@ -28,8 +37,10 @@ FileUtils.copy(dir + '/subversion', home_dir + '/.subversion/config')
 FileUtils.mkdir(home_dir + '/bin') unless File.exists?(home_dir + '/bin')
 FileUtils.copy(dir + '/scripts/battery-status.rb', home_dir + '/bin/battery')
 FileUtils.chmod(0755, home_dir + '/bin/battery')
-FileUtils.copy(dir + '/scripts/webkit2png.py', home_dir + '/bin/webkit2png')
-FileUtils.chmod(0755, home_dir + '/bin/webkit2png')
+if os == :OSX
+  FileUtils.copy(dir + '/scripts/webkit2png.py', home_dir + '/bin/webkit2png')
+  FileUtils.chmod(0755, home_dir + '/bin/webkit2png')
+end
 
 # zsh
 FileUtils.copy(dir + '/zsh', home_dir + '/.zshrc')
