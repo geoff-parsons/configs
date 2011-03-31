@@ -53,7 +53,7 @@ export PATH="$PATH:/usr/X11/bin"
 ##      Man Path     ##
 #######################
 
-export MANPATH="/usr/local/man"
+export MANPATH="/usr/local/share/man:/usr/share/man"
 # Ports
 export MANPATH="$MANPATH:/opt/local/share/man:/opt/local/man"
 # default path
@@ -64,6 +64,13 @@ export MANPATH="$MANPATH:/Developer/usr/share/man"
 export MANPATH="$MANPATH:/usr/local/mysql/man"
 # X11
 export MANPATH="$MANPATH:/usr/X11/man"
+
+
+#######################
+##      Lib Path     ##
+#######################
+
+export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
 
 
 #######################
