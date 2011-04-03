@@ -78,9 +78,9 @@ export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
 #######################
 
 if ls --color >/dev/null 2>/dev/null; then
-  alias ls="ls --color -h"
+  alias ls="ls --color -hp"
 else
-  alias ls="ls -hG"
+  alias ls="ls -phG"
 fi
 alias ll="ls -l"
 alias la="ls -a"
