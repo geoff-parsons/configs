@@ -82,6 +82,7 @@ if ls --color >/dev/null 2>/dev/null; then
 else
   alias ls="ls -phG"
 fi
+alias l="ls"
 alias ll="ls -l"
 alias la="ls -a"
 alias lr="ls -r"
