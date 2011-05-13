@@ -206,7 +206,9 @@ fi
 ##        Mac        ##
 #######################
 
-function volume() {
-  `osascript -e "set volume $1"`
-}
-alias mute='volume 0'
+if [[ -x `which git` ]]; then
+  function volume() {
+    `osascript -e "set volume $1"`
+  }
+  alias mute='volume 0'
+fi
