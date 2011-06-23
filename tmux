@@ -1,10 +1,8 @@
 
 set -g default-terminal "xterm-256color"
 
-
 # Start Window List at 1
 set -g base-index 1
-
 
 # Visual Bell
 set-option -g visual-bell on
@@ -14,14 +12,17 @@ setw -g monitor-activity on
 set -g visual-activity on
 
 
-#--Key Bindings-----------------------------------------------------------------
+##
+## Key Bindings
+##
 
 bind-key -n ^[ previous-window
 bind-key -n ^] next-window
 
 
-
-#--Status-Bar-------------------------------------------------------------------
+##
+## Status Bar
+##
 
 # Default colors
 set -g status-bg white
