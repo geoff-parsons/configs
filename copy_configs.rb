@@ -29,6 +29,14 @@ FileUtils.copy( File.join(config_dir, 'autotest'), File.join(home_dir, '.autotes
 
 
 ##
+## Emacs
+##
+
+FileUtils.remove_dir( File.join(home_dir, '.emacs.d'), :force => true )
+FileUtils.cp_r( File.join(config_dir, 'emacs'), File.join(home_dir, '.emacs.d'))
+
+
+##
 ## Git
 ##
 
