@@ -5,7 +5,7 @@ Installation
 
 Clone this repository
 
-```git clone git@github.com:skhisma/configs.git ~/Configs```
+```git clone git://github.com/skhisma/configs.git ~/Configs```
 
 Run the copy_configs.rb script
 
