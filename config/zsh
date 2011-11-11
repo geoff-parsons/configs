@@ -67,13 +67,6 @@ export MANPATH="$MANPATH:/usr/X11/man"
 
 
 #######################
-##      Lib Path     ##
-#######################
-
-export DYLD_LIBRARY_PATH="/usr/local/mysql/lib:$DYLD_LIBRARY_PATH"
-
-
-#######################
 ##      Aliases      ##
 #######################
 
