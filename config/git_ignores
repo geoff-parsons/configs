@@ -1,8 +1,27 @@
 .DS_Store
-.svn
+
 *.pyc
-log/*.log
-tmp/**/*
+
+build
+
+# Gods Save Us...
+.svn
+
+# XCode / iOS Ignores
+xcuserdata
+*.o
+*.lev
+*.swp
+*~.nib
+
+# Emacs-Specific Ignores
+*~
+\#*\#
+*\#
+.\#*
+
+# Rails-Specific Ignores
 config/database.yml
 db/*.sqlite3
-vendor/gems
+log/*.log
+tmp/**/*
