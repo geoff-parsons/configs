@@ -10,6 +10,9 @@
 ;; Don't allow tabs to be inserted
 (setq-default insert-tabs-mode nil)
 
+;; Warn about trailing whitespace
+(setq-default show-trailing-whitespace t)
+
 (require 'ido)
 (ido-mode t)
 
