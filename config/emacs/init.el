@@ -11,6 +11,14 @@
 
 
 ;;
+;; backup files
+;;
+
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+
+
+;;
 ;; init el-get, installing if necessary
 ;;
 
@@ -121,9 +129,9 @@
         ruby-block
         ruby-end
         ruby-mode
-		rvm
+        rvm
         sass-mode
-		scss-mode
+        scss-mode
         textile-mode
         yaml-mode)
        (mapcar 'el-get-source-name el-get-sources)))
