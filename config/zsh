@@ -50,8 +50,6 @@ export PATH="$PATH:/usr/X11/bin"
 #######################
 
 export MANPATH="/usr/local/share/man:/usr/share/man"
-# Ports
-export MANPATH="$MANPATH:/opt/local/share/man:/opt/local/man"
 # default path
 export MANPATH="$MANPATH:/usr/share/man"
 # Developer tool's bin
