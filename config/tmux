@@ -38,8 +38,9 @@ set-window-option -g window-status-format '[#I: #W#F]'
 set-window-option -g window-status-current-format "#[bg=colour14,fg=black][#I: #W#F]"
  
 # Alerted window in status bar. Windows which have an alert (bell, activity or content).
-set-window-option -g window-status-alert-fg red
-set-window-option -g window-status-alert-bg white
+set-window-option -g window-status-bell-bg white
+set-window-option -g window-status-bell-fg red
+
  
 # Right side of status bar
 set -g status-right ' #(date +"%l:%M:%S %p %e-%h-%Y") '
