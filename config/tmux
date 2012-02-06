@@ -37,9 +37,14 @@ set-window-option -g window-status-format '[#I: #W#F]'
 # Current or active window in status bar
 set-window-option -g window-status-current-format "#[bg=colour14,fg=black][#I: #W#F]"
  
-# Alerted window in status bar. Windows which have an alert (bell, activity or content).
+# Alerted window in status bar. Windows which have a bell.
 set-window-option -g window-status-bell-bg white
 set-window-option -g window-status-bell-fg red
+
+set-window-option -g window-status-content-bg white
+set-window-option -g window-status-content-fg red
+set-window-option -g window-status-activity-bg black
+set-window-option -g window-status-activity-fg yellow
 
  
 # Right side of status bar
