@@ -70,7 +70,7 @@ if os == :OSX
   FileUtils.chmod(0755, File.join(home_dir, 'bin', 'webkit2png') )
 end
 
-FileUtils.copy( File.join(script_dir, 'tmux-rails.sh'), File.join(home_dir, 'bin', 'tmux-rails') )
+FileUtils.copy( File.join(script_dir, 'tmux-rails.rb'), File.join(home_dir, 'bin', 'tmux-rails') )
 FileUtils.chmod(0755, File.join(home_dir, 'bin', 'tmux-rails') )
 
 FileUtils.copy( File.join(script_dir, 'ssh-public-key.sh'), File.join(home_dir, 'bin', 'ssh-public-key') )
