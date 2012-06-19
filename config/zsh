@@ -3,6 +3,18 @@
 ##    zsh Options    ##
 #######################
 
+# RVM - must be before Oh-My-ZSH
+if [[ -s ~/.rvm/scripts/rvm ]] ; then
+  source ~/.rvm/scripts/rvm
+fi
+
+# User Oh-My-ZSH
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="prose"
+plugins=(git ruby rails textmate brew rvm)
+DISABLE_AUTO_UPDATE="true"
+source $ZSH/oh-my-zsh.sh
+
 # Completion
 zstyle ':completion:*' completer _expand _complete
 autoload -Uz compinit
@@ -15,7 +27,6 @@ colors
 
 # Prompt Options
 setopt prompt_subst
-export PROMPT=$'%{$reset_color%}(%n@%m) (%2c) %{$(git-prompt)%}%% '
 
 # Auto-cd: "/usr/bin" is the same as "cd /usr/bin"
 setopt AUTO_CD
@@ -130,19 +141,6 @@ fi
 
 
 #######################
-##        Ruby       ##
-#######################
-
-# capistrano
-alias cap1="cap _1.4.1_"
-
-# RVM
-if [[ -s ~/.rvm/scripts/rvm ]] ; then
-  source ~/.rvm/scripts/rvm
-fi
-
-
-#######################
 ##        Java       ##
 #######################
 
@@ -155,39 +153,6 @@ elif [ -d /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home ]
 fi
 export ANT_HOME="/usr/share/ant"
 export MAVEN_HOME="/usr/share/maven"
-
-
-#######################
-##        Git        ##
-#######################
-
-if [[ -x `which git` ]]; then
-  
-  function git-branch-name() {
-    git branch 2> /dev/null | grep "^\*" | sed "s/^\*\ //"
-  }
-  
-  function git-dirty() {
-    git status | grep "nothing to commit (working directory clean)"
-    echo $?
-  }
-  
-  function git-prompt() {
-    branch=$(git-branch-name)
-    if [[ x$branch != x && $branch != '' ]]; then
-      dirty_color=$fg[green]
-      if [[ $(git-dirty) = 1 ]] { dirty_color=$fg[red] }
-      [ x$branch != x ] && echo "[%{$dirty_color%}$branch$(git-stash-count)%{$reset_color%}] "
-    fi
-  }
-  
-  function git-stash-count() {
-    branch=$(git-branch-name)
-    count=$(git stash list | grep "${branch}" | wc -l | awk '{print $1}')
-    [ $count != 0 ] && echo " ($count)"
-  }
-
-fi
 
 
 #######################
