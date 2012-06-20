@@ -3,6 +3,10 @@ Various config files to keep from having to manage them separately.
 Installation
 ============
 
+Clone my fork of oh-my-zsh to your home directory
+
+```git clone git://github.com/skhisma/oh-my-zsh.git ~/.oh-my-zsh```
+
 Clone this repository
 
 ```git clone git://github.com/skhisma/configs.git ~/Configs```
