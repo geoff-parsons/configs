@@ -144,15 +144,17 @@ fi
 ##        Java       ##
 #######################
 
-if [ -d /usr/lib/jvm/java-6-sun/jre ]; then
-  # Ubuntu with Java 6
-  export JAVA_HOME="/usr/lib/jvm/java-6-sun/jre"
-elif [ -d /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home ]; then
-  # OS X
+# Set JAVA_HOME on OS X
+if [ -d /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home ]; then
   export JAVA_HOME="/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home"
 fi
 export ANT_HOME="/usr/share/ant"
 export MAVEN_HOME="/usr/share/maven"
+
+# Enable jenv completion
+if which jenv > /dev/null; then
+  eval "$(jenv init -)"
+fi
 
 
 #######################
