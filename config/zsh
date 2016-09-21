@@ -90,9 +90,6 @@ fi
 if [[ -e '/Applications/GitX.app' ]]; then
   alias gitx="/Applications/GitX.app/Contents/Resources/gitx"
 fi
-if [[ -e '/Applications/Calculator.app' ]]; then
-  alias calc="open /Applications/Calculator.app"
-fi
 if [[ -d '/Applications/VLC.app' ]]; then
   alias vlc="/Applications/VLC.app/Contents/MacOS/VLC"
 fi
