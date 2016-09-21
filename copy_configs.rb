@@ -36,6 +36,15 @@ FileUtils.cp_r( File.join(config_dir, 'emacs'), File.join(home_dir, '.emacs.d'))
 
 
 ##
+## SublimeText
+##
+
+if File.exists?('/Applications/Sublime Text.app')
+  FileUtils.copy( File.join(config_dir, 'sublime'), File.join(home_dir, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
+end
+
+
+##
 ## Git
 ##
 
@@ -50,7 +59,7 @@ system('git config --global web.browser lynx') if `which lynx`.length > 0
 ##
 
 unless File.exists?( File.join(home_dir, '.subversion') )
-  FileUtils.mkdir( File.join(home_dir, '.subversion') ) 
+  FileUtils.mkdir( File.join(home_dir, '.subversion') )
 end
 FileUtils.copy( File.join(config_dir, 'subversion'), File.join(home_dir, '.subversion/config') )
 
