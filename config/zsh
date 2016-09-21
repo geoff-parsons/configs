@@ -10,8 +10,8 @@ fi
 
 # User Oh-My-ZSH
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="prose"
-plugins=(git rails rvm)
+ZSH_THEME="skhisma"
+plugins=(git rails rvm colored-man-pages battery)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 

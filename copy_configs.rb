@@ -99,6 +99,7 @@ FileUtils.copy( File.join(config_dir, 'tmux'), File.join(home_dir, '.tmux.conf')
 
 FileUtils.copy( File.join(config_dir, 'zsh'), File.join(home_dir, '.zshrc') )
 FileUtils.ln_s(home_dir + '/.zshrc', home_dir + '/.zshenv', :force => true)
+FileUtils.copy( File.join(config_dir, 'skhisma.zsh-theme'), File.join(home_dir, '.oh-my-zsh/themes/skhisma.zsh-theme') )
 
 
 ##
