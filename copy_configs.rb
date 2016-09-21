@@ -25,7 +25,6 @@ else
   FileUtils.copy( File.join(config_dir, 'ruby_gems'), File.join(home_dir, '.gemrc') )
 end
 FileUtils.copy( File.join(config_dir, 'irb'), File.join(home_dir, '.irbrc') )
-FileUtils.copy( File.join(config_dir, 'autotest'), File.join(home_dir, '.autotest') )
 
 
 ##
