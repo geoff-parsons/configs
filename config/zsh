@@ -46,14 +46,10 @@ export PATH=".:${HOME}/bin"
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 # Default path
 export PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
-# Developer tool's bin
-export PATH="$PATH:/Developer/usr/bin"
 # MySQL
 export PATH="$PATH:/usr/local/mysql/bin"
 # Postgres
 export PATH="$PATH:/usr/local/pgsql/bin"
-# X11
-export PATH="$PATH:/usr/X11/bin"
 
 
 #######################
@@ -67,8 +63,6 @@ export MANPATH="$MANPATH:/usr/share/man"
 export MANPATH="$MANPATH:/Developer/usr/share/man"
 # MySQL
 export MANPATH="$MANPATH:/usr/local/mysql/man"
-# X11
-export MANPATH="$MANPATH:/usr/X11/man"
 
 
 #######################
