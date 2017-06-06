@@ -44,12 +44,10 @@ setopt EXTENDED_GLOB
 export PATH=".:${HOME}/bin"
 # /usr/local
 export PATH="$PATH:/usr/local/bin:/usr/local/sbin"
+# PyEnv
+export PATH="$PATH:${HOME}/.pyenv/shims:${HOME}/.local/bin"
 # Default path
 export PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
-# MySQL
-export PATH="$PATH:/usr/local/mysql/bin"
-# Postgres
-export PATH="$PATH:/usr/local/pgsql/bin"
 
 
 #######################
