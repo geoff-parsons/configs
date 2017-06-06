@@ -8,6 +8,14 @@
   [
     ".DS_Store"
   ],
+  "folder_exclude_patterns":
+  [
+    ".git",
+    "tmp",
+    "log",
+    "cov",
+    "coverage"
+  ],
   "gutter": true,
   "highlight_line": true,
   "highlight_modified_tabs": true,

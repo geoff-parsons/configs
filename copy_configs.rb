@@ -40,6 +40,7 @@ FileUtils.cp_r( File.join(config_dir, 'emacs'), File.join(home_dir, '.emacs.d'))
 ##
 
 if File.exists?('/Applications/Sublime Text.app')
+  FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', :force => true)
   FileUtils.copy( File.join(config_dir, 'sublime'), File.join(home_dir, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
 end
 
