@@ -14,7 +14,8 @@
     "tmp",
     "log",
     "cov",
-    "coverage"
+    "coverage",
+    ".byebug_history"
   ],
   "gutter": true,
   "highlight_line": true,
