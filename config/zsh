@@ -41,13 +41,9 @@ setopt EXTENDED_GLOB
 ##        Path       ##
 #######################
 
-export PATH=".:${HOME}/bin"
-# /usr/local
-export PATH="$PATH:/usr/local/bin:/usr/local/sbin"
+export PATH=".:${HOME}/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 # PyEnv
 export PATH="$PATH:${HOME}/.pyenv/shims:${HOME}/.local/bin"
-# Default path
-export PATH="$PATH:/usr/bin:/usr/sbin:/bin:/sbin"
 
 
 #######################
@@ -129,6 +125,13 @@ if [[ -f ~/.zkbd/$TERM-$VENDOR-$OSTYPE ]]; then
   bindkey "${key[Home]}" beginning-of-line
   bindkey "${key[End]}" end-of-line
 fi
+
+
+#######################
+##        Ruby       ##
+#######################
+
+alias bx="bundle exec"
 
 
 #######################

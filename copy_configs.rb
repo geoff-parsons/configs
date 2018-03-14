@@ -26,6 +26,10 @@ else
 end
 FileUtils.copy( File.join(config_dir, 'irb'), File.join(home_dir, '.irbrc') )
 
+# Pow / Powder config
+FileUtils.copy( File.join(config_dir, 'pow'), File.join(home_dir, '.powconfig') )
+
+
 ##
 ## Node / JS
 ##
