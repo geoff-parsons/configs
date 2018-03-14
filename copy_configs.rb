@@ -1,5 +1,5 @@
 require 'fileutils'
-require 'etc' 
+require 'etc'
 
 home_dir = Etc.getpwuid.dir
 config_dir = File.join( File.dirname(__FILE__), 'config' )
