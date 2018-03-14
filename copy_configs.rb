@@ -26,6 +26,14 @@ else
 end
 FileUtils.copy( File.join(config_dir, 'irb'), File.join(home_dir, '.irbrc') )
 
+##
+## Node / JS
+##
+
+unless File.exist?( File.join(home_dir, '.nvm') )
+  FileUtils.mkdir( File.join(home_dir, '.nvm') )
+end
+
 
 ##
 ## Emacs
