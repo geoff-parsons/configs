@@ -56,6 +56,14 @@ if File.exists?('/Applications/Sublime Text.app')
   FileUtils.copy( File.join(config_dir, 'sublime'), File.join(home_dir, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
 end
 
+##
+## iTerm
+##
+if File.exists?('/Applications/iTerm.app/')
+  FileUtils.mkdir( File.join(home_dir, '.iterm2') )
+  FileUtils.copy( File.join(config_dir, 'iterm'), File.join(home_dir, '.iterm2/com.googlecode.iterm2.plist') )
+end
+
 
 ##
 ## Git
