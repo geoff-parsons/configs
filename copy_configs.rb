@@ -78,28 +78,6 @@ FileUtils.copy( File.join(config_dir, 'subversion'), File.join(home_dir, '.subve
 
 
 ##
-## Scripts
-##
-
-FileUtils.mkdir(home_dir + '/bin') unless File.exists?(home_dir + '/bin')
-
-FileUtils.copy( File.join(script_dir, 'battery-status.rb'), File.join(home_dir, 'bin', 'battery') )
-FileUtils.chmod(0755, File.join(home_dir, 'bin', 'battery') )
-
-if os == :OSX
-  FileUtils.copy( File.join(script_dir, 'webkit2png.py'), File.join(home_dir, 'bin', 'webkit2png') )
-  FileUtils.chmod(0755, File.join(home_dir, 'bin', 'webkit2png') )
-end
-
-FileUtils.copy( File.join(script_dir, 'tmux-rails.rb'), File.join(home_dir, 'bin', 'tmux-rails') )
-FileUtils.chmod(0755, File.join(home_dir, 'bin', 'tmux-rails') )
-
-FileUtils.copy( File.join(script_dir, 'ssh-public-key.sh'), File.join(home_dir, 'bin', 'ssh-public-key') )
-FileUtils.chmod(0755, File.join(home_dir, 'bin', 'ssh-public-key') )
-
-
-
-##
 ## tmux
 ##
 
@@ -113,6 +91,12 @@ FileUtils.copy( File.join(config_dir, 'tmux'), File.join(home_dir, '.tmux.conf')
 FileUtils.copy( File.join(config_dir, 'zsh'), File.join(home_dir, '.zshrc') )
 FileUtils.ln_s(home_dir + '/.zshrc', home_dir + '/.zshenv', :force => true)
 FileUtils.copy( File.join(config_dir, 'skhisma.zsh-theme'), File.join(home_dir, '.oh-my-zsh/themes/skhisma.zsh-theme') )
+
+##
+## ~/bin
+##
+
+FileUtils.mkdir(home_dir + '/bin') unless File.exists?(home_dir + '/bin')
 
 
 ##
