@@ -60,8 +60,8 @@ end
 ## iTerm
 ##
 if File.exists?('/Applications/iTerm.app/')
-  FileUtils.mkdir( File.join(home_dir, '.iterm2') )
-  FileUtils.copy( File.join(config_dir, 'iterm'), File.join(home_dir, '.iterm2/com.googlecode.iterm2.plist') )
+  FileUtils.mkdir( File.join(home_dir, '.iterm2') ) unless File.exists?(File.join(home_dir, '.iterm2'))
+  FileUtils.copy( File.join(config_dir, 'iterm2'), File.join(home_dir, '.iterm2/com.googlecode.iterm2.plist') )
 end
 
 
