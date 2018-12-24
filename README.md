@@ -1,19 +1,16 @@
-Various config files to keep from having to manage them separately.
+Various config files to keep from having to manage them separately. Fairly heavily OS X-oriented.
 
-Installation
+Setup
 ============
 
-Clone my fork of oh-my-zsh to your home directory
+1. Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh).
 
-```git clone git://github.com/skhisma/oh-my-zsh.git ~/.oh-my-zsh```
+2. Clone this repository:
 
-Clone this repository
-
-```git clone git://github.com/skhisma/configs.git ~/Configs```
-
-Run the copy_configs.rb script
-
-```ruby ~/Configs/copy_configs.rb```
+  ```git clone git://github.com/skhisma/configs.git ~/Configs```
+3. Run the copy_configs.rb script:
+  
+  ```ruby ~/Configs/copy_configs.rb```
 
 And you should be good to go.
 
@@ -21,11 +18,4 @@ And you should be good to go.
 Notes
 =====
 
-Emacs
------
-
-This config is designed around emacs 24. Currently to install this on a mac you will need to install from HEAD via homebrew:
-
-```brew install emacs --HEAD```
-
-The emacs config makes use of el-get; you will need to start emacs and wait for el-get to be cloned and then start emacs again and wait for all of the recipes to be installed before emacs will be ready to use.
+The `copy_configs` script does its best to only copy needed configs over and in some cases will recommend installing various packages. It's not perfect however.
