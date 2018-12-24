@@ -1,5 +1,25 @@
 
 #######################
+##        Path       ##
+#######################
+
+# . and ~/bin
+export PATH=".:${HOME}/bin:${PATH}"
+
+# PyEnv
+export PATH="${PATH}:${HOME}/.pyenv/shims:${HOME}/.local/bin"
+
+
+#######################
+##      Man Path     ##
+#######################
+
+export MANPATH="/usr/local/share/man:/usr/share/man:/usr/share/man"
+# Developer tool's bin
+export MANPATH="${MANPATH}:/Applications/Xcode.app/Contents/Developer/usr/share/man"
+
+
+#######################
 ##    zsh Options    ##
 #######################
 
@@ -35,28 +55,6 @@ setopt AUTO_CD
 setopt NO_BEEP
 
 setopt EXTENDED_GLOB
-
-
-#######################
-##        Path       ##
-#######################
-
-export PATH=".:${HOME}/bin:/usr/local/bin:/usr/local/sbin:$PATH"
-# PyEnv
-export PATH="$PATH:${HOME}/.pyenv/shims:${HOME}/.local/bin"
-
-
-#######################
-##      Man Path     ##
-#######################
-
-export MANPATH="/usr/local/share/man:/usr/share/man"
-# default path
-export MANPATH="$MANPATH:/usr/share/man"
-# Developer tool's bin
-export MANPATH="$MANPATH:/Developer/usr/share/man"
-# MySQL
-export MANPATH="$MANPATH:/usr/local/mysql/man"
 
 
 #######################
