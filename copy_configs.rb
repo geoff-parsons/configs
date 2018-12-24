@@ -1,11 +1,10 @@
 require 'fileutils'
 require 'etc'
 
-home_dir = Etc.getpwuid.dir
-config_dir = File.join( File.dirname(__FILE__), 'config' )
-script_dir = File.join( File.dirname(__FILE__), 'scripts')
-
-os = case `uname`
+HOME_DIR = Etc.getpwuid.dir
+CONFIG_DIR = File.join( File.dirname(__FILE__), 'config' )
+TEXT_BROWSER = %w[links lynx].find { |cmd| `which #{cmd}`.size > 0 }
+OS = case `uname`
        when /linux/i
          :linux
        when /darwin/i
@@ -18,24 +17,19 @@ os = case `uname`
 ## Ruby
 ##
 
-if `which gem`.length == 0
-  puts "You appear to not have ruby gems installed:"
-  puts "  IRB config will not work without removing the line \"require 'rubygems'\""
-else
-  FileUtils.copy( File.join(config_dir, 'ruby_gems'), File.join(home_dir, '.gemrc') )
-end
-FileUtils.copy( File.join(config_dir, 'irb'), File.join(home_dir, '.irbrc') )
+FileUtils.copy( File.join(CONFIG_DIR, 'ruby_gems'), File.join(HOME_DIR, '.gemrc') )
+FileUtils.copy( File.join(CONFIG_DIR, 'irb'), File.join(HOME_DIR, '.irbrc') )
 
 # Pow / Powder config
-FileUtils.copy( File.join(config_dir, 'pow'), File.join(home_dir, '.powconfig') )
+FileUtils.copy( File.join(CONFIG_DIR, 'pow'), File.join(HOME_DIR, '.powconfig') )
 
 
 ##
 ## Node / JS
 ##
 
-unless File.exist?( File.join(home_dir, '.nvm') )
-  FileUtils.mkdir( File.join(home_dir, '.nvm') )
+unless File.exist?( File.join(HOME_DIR, '.nvm') )
+  FileUtils.mkdir( File.join(HOME_DIR, '.nvm') )
 end
 
 
@@ -45,15 +39,15 @@ end
 
 if File.exists?('/Applications/Sublime Text.app')
   FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', :force => true)
-  FileUtils.copy( File.join(config_dir, 'sublime'), File.join(home_dir, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
+  FileUtils.copy( File.join(CONFIG_DIR, 'sublime'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
 end
 
 ##
 ## iTerm
 ##
 if File.exists?('/Applications/iTerm.app/')
-  FileUtils.mkdir( File.join(home_dir, '.iterm2') ) unless File.exists?(File.join(home_dir, '.iterm2'))
-  FileUtils.copy( File.join(config_dir, 'iterm2'), File.join(home_dir, '.iterm2/com.googlecode.iterm2.plist') )
+  FileUtils.mkdir( File.join(HOME_DIR, '.iterm2') ) unless File.exists?(File.join(HOME_DIR, '.iterm2'))
+  FileUtils.copy( File.join(CONFIG_DIR, 'iterm2'), File.join(HOME_DIR, '.iterm2/com.googlecode.iterm2.plist') )
 end
 
 
@@ -61,42 +55,41 @@ end
 ## Git
 ##
 
-FileUtils.copy( File.join(config_dir, 'git'), File.join(home_dir, '.gitconfig') )
-FileUtils.copy( File.join(config_dir, 'git_ignores'), File.join(home_dir, '.gitignore') )
-# see if we have lynx, if so set it as the default web browser for git help --web
-system('git config --global web.browser lynx') if `which lynx`.length > 0
+FileUtils.copy( File.join(CONFIG_DIR, 'git'), File.join(HOME_DIR, '.gitconfig') )
+FileUtils.copy( File.join(CONFIG_DIR, 'git_ignores'), File.join(HOME_DIR, '.gitignore') )
+# see if we have any text browsers, if so set it as the default web browser for git help --web
+system('git config --global web.browser #{TEXT_BROWSER}') if TEXT_BROWSER
 
 
 ##
 ## Subversion
 ##
 
-unless File.exists?( File.join(home_dir, '.subversion') )
-  FileUtils.mkdir( File.join(home_dir, '.subversion') )
+unless File.exists?( File.join(HOME_DIR, '.subversion') )
+  FileUtils.mkdir( File.join(HOME_DIR, '.subversion') )
 end
-FileUtils.copy( File.join(config_dir, 'subversion'), File.join(home_dir, '.subversion/config') )
+FileUtils.copy( File.join(CONFIG_DIR, 'subversion'), File.join(HOME_DIR, '.subversion/config') )
 
 
 ##
 ## tmux
 ##
 
-FileUtils.copy( File.join(config_dir, 'tmux'), File.join(home_dir, '.tmux.conf') )
+FileUtils.copy( File.join(CONFIG_DIR, 'tmux'), File.join(HOME_DIR, '.tmux.conf') )
 
 
 ##
 ## zsh
 ##
 
-FileUtils.copy( File.join(config_dir, 'zsh'), File.join(home_dir, '.zshrc') )
-FileUtils.ln_s(home_dir + '/.zshrc', home_dir + '/.zshenv', :force => true)
-FileUtils.copy( File.join(config_dir, 'skhisma.zsh-theme'), File.join(home_dir, '.oh-my-zsh/themes/skhisma.zsh-theme') )
+FileUtils.copy( File.join(CONFIG_DIR, 'zsh'), File.join(HOME_DIR, '.zshrc') )
+FileUtils.copy( File.join(CONFIG_DIR, 'skhisma.zsh-theme'), File.join(HOME_DIR, '.oh-my-zsh/themes/skhisma.zsh-theme') )
 
 ##
 ## ~/bin
 ##
 
-FileUtils.mkdir(home_dir + '/bin') unless File.exists?(home_dir + '/bin')
+FileUtils.mkdir(HOME_DIR + '/bin') unless File.exists?(HOME_DIR + '/bin')
 
 
 ##
