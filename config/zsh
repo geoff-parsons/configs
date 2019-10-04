@@ -28,6 +28,9 @@ ZSH_THEME="skhisma"
 plugins=(rails gem jenv pyenv rbenv colored-man-pages battery)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
+if [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Completion
 zstyle ':completion:*' completer _expand _complete
