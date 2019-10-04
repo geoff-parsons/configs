@@ -73,7 +73,7 @@ if ! (which pbcopy > /dev/null); then
   fi
 fi
 
-if which brew > /dev/null; then
+if command -v brew 1>/dev/null 2>/dev/null; then
   alias brews='brew list -1'
 fi
 
@@ -98,16 +98,19 @@ setopt appendhistory
 ##      Editors      ##
 #######################
 
-if which subl > /dev/null; then
+if command -v subl 1>/dev/null 2>/dev/null; then
   export EDITOR="subl -nw"
   export SVN_EDITOR="subl -nw"
   export GIT_EDITOR="subl -nw"
+elif command -v nano 1>/dev/null 2>/dev/null; then
+  export EDITOR="nano"
+  export SVN_EDITOR="nano"
+  export GIT_EDITOR="nano"
 else
   export EDITOR="pico"
   export SVN_EDITOR="pico"
   export GIT_EDITOR="pico"
 fi
-
 
 #######################
 ##    Key Bindings   ##
