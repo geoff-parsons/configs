@@ -3,11 +3,7 @@
 ##        Path       ##
 #######################
 
-# . and ~/bin
-export PATH=".:${HOME}/bin:${PATH}"
-
-# PyEnv
-export PATH="${PATH}:${HOME}/.pyenv/shims:${HOME}/.local/bin"
+export PATH=".:${HOME}/bin:${HOME}/.pyenv/shims:${HOME}/.local/bin:${PATH}"
 
 
 #######################
@@ -131,6 +127,16 @@ fi
 
 alias bx="bundle exec"
 
+
+#######################
+##       Python      ##
+#######################
+
+export PYENV_ROOT="$HOME/.pyenv"
+alias px="pyenv exec"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 #######################
 ##        Node       ##
