@@ -13,9 +13,21 @@ OS = case `uname`
          :WTF
      end
 
+def set_xenv_global(command, version)
+  if !system("command -v #{command} 1>/dev/null 2>/dev/null")
+    return
+  elsif `#{command} versions --bare`.split.include?(version)
+    system("#{command} global #{version}")
+  else
+    puts "Configs wants to set global #{command} version to #{version} but it is not installed."
+  end
+end
+
 ##
 ## Ruby
 ##
+
+set_xenv_global("rbenv", "2.6.5")
 
 FileUtils.copy( File.join(CONFIG_DIR, 'ruby_gems'), File.join(HOME_DIR, '.gemrc') )
 FileUtils.copy( File.join(CONFIG_DIR, 'irb'), File.join(HOME_DIR, '.irbrc') )
@@ -23,6 +35,18 @@ FileUtils.copy( File.join(CONFIG_DIR, 'irb'), File.join(HOME_DIR, '.irbrc') )
 # Pow / Powder config
 FileUtils.copy( File.join(CONFIG_DIR, 'pow'), File.join(HOME_DIR, '.powconfig') )
 
+
+##
+## Python
+##
+
+set_xenv_global("pyenv", "3.7.3")
+
+##
+## Java
+##
+
+set_xenv_global("jenv", "oracle64-11.0.1")
 
 ##
 ## Node / JS
