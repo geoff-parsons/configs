@@ -124,6 +124,8 @@ fi
 #######################
 
 alias bx="bundle exec"
+# allows square brackts for rake task invocation
+alias rake="noglob rake"
 
 # Handled by the rbenv oh my zsh plugin...
 # if command -v rbenv 1>/dev/null 2>&1; then

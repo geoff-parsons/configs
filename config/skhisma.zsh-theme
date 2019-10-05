@@ -19,7 +19,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}|$(git_stash_count)"
 
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[cyan]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="|%{$fg[red]%}%{✚ %G%}"
-ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖ %G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎ %G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇ %G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆ %G%}"
