@@ -24,8 +24,8 @@ ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎ %G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇ %G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆ %G%}"
 #ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="|%{$fg[yellow]%}%{✽%G%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="|%|{$fg_bold[green]%}%{✔%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="|%{$fg[yellow]%}%{✱%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="|%{$fg_bold[green]%}%{✔%G%}"
 
 
 ZSH_THEME_XENV_PROMPT_PREFIX=" using "
