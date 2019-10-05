@@ -8,6 +8,7 @@ Setup
 2. Clone this repository:
 
   ```git clone git://github.com/skhisma/configs.git ~/Configs```
+
 3. Run the copy_configs.rb script:
   
   ```ruby ~/Configs/copy_configs.rb```

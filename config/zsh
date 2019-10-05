@@ -3,7 +3,7 @@
 ##        Path       ##
 #######################
 
-export PATH=".:${HOME}/bin:${HOME}/.local/bin:$PATH"
+export PATH=".:${HOME}/bin:/usr/local/sbin:$PATH"
 
 #######################
 ##      Man Path     ##
@@ -17,15 +17,11 @@ export MANPATH="${MANPATH}:/Applications/Xcode.app/Contents/Developer/usr/share/
 ##    zsh Options    ##
 #######################
 
-# RVM - must be before Oh-My-ZSH
-if [[ -s ~/.rvm/scripts/rvm ]] ; then
-  source ~/.rvm/scripts/rvm
-fi
-
 # User Oh-My-ZSH
+export LANG=en_US.UTF-8
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="skhisma"
-plugins=(rails gem jenv pyenv rbenv colored-man-pages battery)
+plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages battery)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 if [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
@@ -52,7 +48,6 @@ setopt AUTO_CD
 setopt NO_BEEP
 
 setopt EXTENDED_GLOB
-
 
 #######################
 ##      Aliases      ##
