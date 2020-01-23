@@ -34,7 +34,9 @@ ZSH_THEME_XENV_PROMPT_SEP=" "
 ZSH_THEME_XENV_RUBY_ICON=$'RB'
 ZSH_THEME_XENV_PYTHON_ICON=$'PY'
 ZSH_THEME_XENV_JAVA_ICON=$'J'
+ZSH_THEME_XENV_NODE_ICON=$'N'
 ZSH_THEME_XENV_RBENV_PROMPT_PREFIX="%{$fg_bold[red]%}${ZSH_THEME_XENV_RUBY_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
+ZSH_THEME_XENV_NVM_PROMPT_PREFIX="%{$fg_bold[blue]%}${ZSH_THEME_XENV_NODE_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
 ZSH_THEME_XENV_PYENV_PROMPT_PREFIX="%{$fg_bold[green]%}${ZSH_THEME_XENV_PYTHON_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
 ZSH_THEME_XENV_JENV_PROMPT_PREFIX="%{$fg_bold[magenta]%}${ZSH_THEME_XENV_JAVA_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
 
@@ -46,12 +48,19 @@ function join_arr {
   fi
 }
 
+function nvm current {
+  nvm current
+}
+
 
 function xenv_prompt_info() {
   local -a lang_versions
 
   if [[ $+commands[rbenv] -eq 1 && -n "$(rbenv local 2>/dev/null)" ]]; then
     lang_versions+="${ZSH_THEME_XENV_RBENV_PROMPT_PREFIX}$(rbenv_prompt_info)"
+  fi
+  if command -v jenv 1>/dev/null 2>&1; then
+    lang_versions+="${ZSH_THEME_XENV_NVM_PROMPT_PREFIX}$(nvm_prompt_info)"
   fi
   if [[ $+commands[pyenv] -eq 1 &&  -n "$(pyenv local 2>/dev/null)" ]]; then
     lang_versions+="${ZSH_THEME_XENV_PYENV_PROMPT_PREFIX}$(pyenv_prompt_info)"
