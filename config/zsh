@@ -168,6 +168,12 @@ export MAVEN_HOME="/usr/share/maven"
 # fi
 
 #######################
+##      Clojure      ##
+#######################
+
+export LEIN_ROOT="$HOME/.lein"
+
+#######################
 ##        Mac        ##
 #######################
 
