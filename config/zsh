@@ -28,6 +28,8 @@ if [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
+autoload -U add-zsh-hook
+
 # Completion
 zstyle ':completion:*' completer _expand _complete
 autoload -Uz compinit
@@ -152,6 +154,26 @@ alias px="pyenv exec"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# auto-run `nvm use` whenever .nvmrc is detected
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version="$(cat "${nvmrc_path}")"
+
+    if [ $(nvm version "$nvmrc_node_version") = "N/A" ]; then
+      echo "You do not have the version of node specified in .nvmrc installed ($nvmrc_node_version)"
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use --silent
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    nvm use --silent default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 #######################
 ##        Java       ##

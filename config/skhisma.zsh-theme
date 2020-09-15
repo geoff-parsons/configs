@@ -13,20 +13,18 @@ function git_stash_count() {
 ZSH_THEME_GIT_PROMPT_PREFIX=" on "
 ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 #ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}●"
-#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[yellow]%}●"
-#ZSH_THEME_GIT_PROMPT_CLEAN="%{$reset_color%}✓"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}|$(git_stash_count)"
-
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[cyan]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="|%{$fg[red]%}%{✚ %G%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖ %G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎ %G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇ %G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆ %G%}"
-#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="|%{$fg[yellow]%}%{✱%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="|%{$fg_bold[green]%}%{✔%G%}"
 
+ZSH_THEME_RUBY_PROMPT_PREFIX=""
+ZSH_THEME_RUBY_PROMPT_SUFFIX=""
 
 ZSH_THEME_XENV_PROMPT_PREFIX=" using "
 ZSH_THEME_XENV_PROMPT_SUFFIX="%{$reset_color%}"
@@ -48,11 +46,6 @@ function join_arr {
   fi
 }
 
-function nvm current {
-  nvm current
-}
-
-
 function xenv_prompt_info() {
   local -a lang_versions
 
@@ -73,8 +66,6 @@ function xenv_prompt_info() {
     echo "${ZSH_THEME_XENV_PROMPT_PREFIX}$(join_arr ${lang_versions})${ZSH_THEME_XENV_PROMPT_SUFFIX}"
   fi
 }
-
-# git_prompt_info
 
 PROMPT='
 %{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} in %{$fg_bold[blue]%}%2c%{$reset_color%}$(xenv_prompt_info)$(git_super_status)

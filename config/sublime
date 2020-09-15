@@ -23,19 +23,30 @@
     ".byebug_history"
   ],
   "font_face": "Monaco",
+  "font_options":
+  [
+  ],
   "font_size": 12,
-  "font_options": [],
-  "theme_font_options": [],
   "gutter": true,
   "highlight_line": true,
   "highlight_modified_tabs": true,
-  "index_exclude_patterns": ["*.log"],
+  "ignored_packages":
+  [
+    "Vintage"
+  ],
+  "index_exclude_patterns":
+  [
+    "*.log"
+  ],
   "rulers":
   [
     120
   ],
   "spell_check": true,
   "tab_size": 2,
+  "theme_font_options":
+  [
+  ],
   "translate_tabs_to_spaces": true,
   "word_wrap": false
 }
