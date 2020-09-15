@@ -29,11 +29,11 @@ end
 
 set_xenv_global("rbenv", "2.6.5")
 
-FileUtils.copy( File.join(CONFIG_DIR, 'ruby_gems'), File.join(HOME_DIR, '.gemrc') )
-FileUtils.copy( File.join(CONFIG_DIR, 'irb'), File.join(HOME_DIR, '.irbrc') )
+FileUtils.copy( File.join(CONFIG_DIR, 'ruby_gems.yml'), File.join(HOME_DIR, '.gemrc') )
+FileUtils.copy( File.join(CONFIG_DIR, 'irb.rb'), File.join(HOME_DIR, '.irbrc') )
 
 # Pow / Powder config
-FileUtils.copy( File.join(CONFIG_DIR, 'pow'), File.join(HOME_DIR, '.powconfig') )
+FileUtils.copy( File.join(CONFIG_DIR, 'pow.sh'), File.join(HOME_DIR, '.powconfig') )
 
 
 ##
@@ -63,7 +63,7 @@ end
 
 if File.exists?('/Applications/Sublime Text.app')
   FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', :force => true)
-  FileUtils.copy( File.join(CONFIG_DIR, 'sublime'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
+  FileUtils.copy( File.join(CONFIG_DIR, 'sublime.json'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
 end
 
 ##
@@ -71,7 +71,8 @@ end
 ##
 if File.exists?('/Applications/iTerm.app/')
   FileUtils.mkdir( File.join(HOME_DIR, '.iterm2') ) unless File.exists?(File.join(HOME_DIR, '.iterm2'))
-  FileUtils.copy( File.join(CONFIG_DIR, 'iterm2'), File.join(HOME_DIR, '.iterm2/com.googlecode.iterm2.plist') )
+  FileUtils.copy( File.join(CONFIG_DIR, 'iterm/settings.plist'), File.join(HOME_DIR, '.iterm2/com.googlecode.iterm2.plist') )
+  FileUtils.copy( File.join(CONFIG_DIR, 'iterm/profile.json'), File.join(HOME_DIR, '.iterm2/profile.json') )
 end
 
 
@@ -106,15 +107,19 @@ FileUtils.copy( File.join(CONFIG_DIR, 'tmux'), File.join(HOME_DIR, '.tmux.conf')
 ## zsh
 ##
 
-FileUtils.copy( File.join(CONFIG_DIR, 'zsh'), File.join(HOME_DIR, '.zshrc') )
+FileUtils.copy( File.join(CONFIG_DIR, 'zsh.sh'), File.join(HOME_DIR, '.zshrc') )
 FileUtils.copy( File.join(CONFIG_DIR, 'skhisma.zsh-theme'), File.join(HOME_DIR, '.oh-my-zsh/themes/skhisma.zsh-theme') )
 
 ##
 ## ~/bin
 ##
 
-FileUtils.mkdir(HOME_DIR + '/bin') unless File.exists?(HOME_DIR + '/bin')
-
+FileUtils.mkdir( File.join(HOME_DIR, 'bin') ) unless File.exists?( File.join(HOME_DIR, 'bin') )
+FileUtils.cp_r(
+  File.join(File.dirname(__FILE__), 'bin'),
+  File.join(HOME_DIR, 'bin')
+)
+FileUtils.chmod_R("+x", File.join(HOME_DIR, 'bin'))
 
 ##
 ## Warnings

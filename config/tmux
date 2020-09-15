@@ -27,16 +27,16 @@ bind-key -n ^] next-window
 # Default colors
 set -g status-bg white
 set -g status-fg black
- 
+
 # Left side of status bar
 set -g status-left ' #(hostname | cut -f1 -d".") #[fg=blue](#S) '
- 
+
 # Inactive windows in status bar
 set-window-option -g window-status-format '[#I: #W#F]'
- 
+
 # Current or active window in status bar
 set-window-option -g window-status-current-format "#[bg=colour14,fg=black][#I: #W#F]"
- 
+
 # Alerted window in status bar. Windows which have a bell.
 set-window-option -g window-status-bell-bg white
 set-window-option -g window-status-bell-fg red
@@ -46,6 +46,6 @@ set-window-option -g window-status-content-fg red
 set-window-option -g window-status-activity-bg black
 set-window-option -g window-status-activity-fg yellow
 
- 
+
 # Right side of status bar
 set -g status-right ' #(date +"%l:%M:%S %p %e-%h-%Y") '

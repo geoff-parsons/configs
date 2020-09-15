@@ -4,7 +4,7 @@ require 'rubygems'
 require 'pp'
 
 IRB.conf[:SAVE_HISTORY] = 100
-IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history" 
+IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 IRB.conf[:PROMPT_MODE]  = :SIMPLE
 IRB.conf[:AUTO_INDENT]  = true
 IRB.conf[:USE_READLINE] = true
@@ -14,7 +14,7 @@ IRB.conf[:USE_READLINE] = true
 def benchmark(repetitions=100, &block)
   require 'benchmark'
   Benchmark.bmbm do |b|
-    b.report {repetitions.times &block} 
+    b.report {repetitions.times &block}
   end
 end
 
@@ -22,7 +22,7 @@ end
 # ri(Array) = ri("Array") = ri([1,2,3])
 def ri(obj = '')
   unless obj.kind_of?(Class) or obj.kind_of?(String)
-    obj = obj.class 
+    obj = obj.class
   end
   puts `ri #{obj}`
 end

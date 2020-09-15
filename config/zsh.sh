@@ -21,7 +21,7 @@ export MANPATH="${MANPATH}:/Applications/Xcode.app/Contents/Developer/usr/share/
 export LANG=en_US.UTF-8
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="skhisma"
-plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages battery)
+plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages encode64 emoji-clock battery jira)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 if [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
@@ -205,3 +205,14 @@ if [[ -x `which osascript` ]]; then
   }
   alias mute='volume 0'
 fi
+
+if [[ -x `which qlmanage` ]]; then
+  function quick-look() {
+    (( $# > 0 )) && qlmanage -p $* &>/dev/null &
+  }
+  alias ql='quick-look'
+fi
+
+function man-preview() {
+  man -t "$@" | open -f -a Preview
+}
