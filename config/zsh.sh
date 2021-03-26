@@ -213,6 +213,12 @@ if [[ -x `which qlmanage` ]]; then
   alias ql='quick-look'
 fi
 
-function man-preview() {
-  man -t "$@" | open -f -a Preview
-}
+if [[ -x `which open` ]]; then
+  function ropen() {
+    open "`find "$1" -type f -print0 | shuf -z -n 1`"
+  }
+
+  function man-preview() {
+    man -t "$@" | open -f -a Preview
+  }
+fi
