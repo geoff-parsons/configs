@@ -1,17 +1,13 @@
 
 #######################
-##        Path       ##
+##       Paths       ##
 #######################
 
 export PATH=".:${HOME}/bin:/usr/local/sbin:$PATH"
 
-#######################
-##      Man Path     ##
-#######################
-
-export MANPATH="/usr/local/share/man:/usr/share/man:/usr/share/man"
+export MANPATH="/usr/local/share/man:/usr/share/man:/usr/local/man:$MANPATH"
 # Developer tool's bin
-export MANPATH="${MANPATH}:/Applications/Xcode.app/Contents/Developer/usr/share/man"
+export MANPATH="$MANPATH:/Applications/Xcode.app/Contents/Developer/usr/share/man"
 
 #######################
 ##    zsh Options    ##
@@ -215,7 +211,23 @@ fi
 
 if [[ -x `which open` ]]; then
   function ropen() {
-    open "`find "$1" -type f -print0 | shuf -z -n 1`"
+    local cmd="find -E \"$1\" -type f"
+    case "$2" in
+        -a)
+            cmd="$cmd -iregex \".*\.(mp3|wav|mid|midi|aac|flac)\""
+            ;;
+        -d)
+            cmd="$cmd -iregex \".*\.(txt|rtf|doc|pdf|md)\""
+            ;;
+        -i)
+            cmd="$cmd -iregex \".*\.(jpg|jpeg|png|gif|webp|bmp)\""
+            ;;
+        -v)
+            cmd="$cmd -iregex \".*\.(mp4|mpeg|mpg|avi|mov|wmv)\""
+            ;;
+    esac
+
+    eval "$cmd -print0 | shuf -z -n 1 | xargs -r0 open"
   }
 
   function man-preview() {
