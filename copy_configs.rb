@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'etc'
-require './string_colorize'
-require './command_helpers'
+require './lib/string_colorize'
+require './lib/command_helpers'
 
 HOME_DIR = Etc.getpwuid.dir
 CONFIG_DIR = File.join( File.dirname(__FILE__), 'config' )
