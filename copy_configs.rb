@@ -23,7 +23,7 @@ OS = case `uname`
 puts '[Ruby]'.bold
 
 DEFAULT_RUBY_VERSION = "2.6.5"
-if cmd_exists?('rbenv')
+if cmd_exists?('rbenv') && `rbenv versions`.include?(DEFAULT_RUBY_VERSION)
   run_cmd(message: "Setting default version with rbenv to #{DEFAULT_RUBY_VERSION.underline}") do
     set_xenv_global("rbenv", DEFAULT_RUBY_VERSION)
   end
@@ -47,7 +47,7 @@ puts
 puts '[Python]'.bold
 
 DEFAULT_PYTHON_VERSION = "3.7.3"
-if cmd_exists?('pyenv')
+if cmd_exists?('pyenv') && `pyenv versions`.include?(DEFAULT_PYTHON_VERSION)
   run_cmd(message: "Setting default version with pyenv to #{DEFAULT_PYTHON_VERSION.underline}") do
     set_xenv_global("pyenv", DEFAULT_PYTHON_VERSION)
   end
@@ -60,7 +60,7 @@ puts
 
 puts '[Java]'.bold
 DEFAULT_JAVA_VERSION = "oracle64-11.0.1"
-if cmd_exists?('jenv')
+if cmd_exists?('jenv') && `jenv versions`.include?(DEFAULT_JAVA_VERSION)
   run_cmd(message: "Setting default version with jenv to #{DEFAULT_JAVA_VERSION.underline}") do
     set_xenv_global("jenv", DEFAULT_JAVA_VERSION)
   end
@@ -90,7 +90,13 @@ if File.exists?('/Applications/Sublime Text.app')
     FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', :force => true)
   end
   run_cmd(message: "Copying SublimeText config") do
-    FileUtils.copy( File.join(CONFIG_DIR, 'sublime.json'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
+    if File.exists?( File.join(HOME_DIR, 'Library/Application Support/Sublime Text/') )
+      FileUtils.copy( File.join(CONFIG_DIR, 'sublime.json'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings') )
+    elsif File.exists?( File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/') )
+      FileUtils.copy( File.join(CONFIG_DIR, 'sublime.json'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
+    else
+      raise "Sublime Text preferences directory could not be found."
+    end
   end
   puts
 end
@@ -194,8 +200,10 @@ puts '[zsh]'.bold
 run_cmd(message: "Copying zsh config") do
   FileUtils.copy( File.join(CONFIG_DIR, 'zsh.sh'), File.join(HOME_DIR, '.zshrc') )
 end
-run_cmd(message: "Copying zsh theme") do
-  FileUtils.copy( File.join(CONFIG_DIR, 'skhisma.zsh-theme'), File.join(HOME_DIR, '.oh-my-zsh/themes/skhisma.zsh-theme') )
+if File.exists?( File.join(HOME_DIR, '.oh-my-zsh') )
+  run_cmd(message: "Copying zsh theme") do
+    FileUtils.copy( File.join(CONFIG_DIR, 'skhisma.zsh-theme'), File.join(HOME_DIR, '.oh-my-zsh/themes/skhisma.zsh-theme') )
+  end
 end
 run_cmd(message: "Updating oh-my-zsh") do
   if cmd_exists?('omz')
