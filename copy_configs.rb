@@ -197,7 +197,13 @@ end
 run_cmd(message: "Copying zsh theme") do
   FileUtils.copy( File.join(CONFIG_DIR, 'skhisma.zsh-theme'), File.join(HOME_DIR, '.oh-my-zsh/themes/skhisma.zsh-theme') )
 end
-puts
+run_cmd(message: "Updating oh-my-zsh") do
+  if cmd_exists?('omz')
+    system('omz update')
+  elsif cmd_exists?('upgrade_oh_my_zsh')
+    system('upgrade_oh_my_zsh')
+  end
+end
 
 
 ##
