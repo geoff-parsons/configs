@@ -23,9 +23,7 @@
     ".byebug_history"
   ],
   "font_face": "Monaco",
-  "font_options":
-  [
-  ],
+  "font_options": [],
   "font_size": 12,
   "gutter": true,
   "highlight_line": true,
@@ -44,9 +42,8 @@
   ],
   "spell_check": true,
   "tab_size": 2,
-  "theme_font_options":
-  [
-  ],
+  "theme_font_options": [],
+  "trim_trailing_white_space_on_save": true,
   "translate_tabs_to_spaces": true,
   "word_wrap": false
 }

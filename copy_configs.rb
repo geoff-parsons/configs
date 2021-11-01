@@ -44,28 +44,27 @@ puts
 ## Python
 ##
 
-puts '[Python]'.bold
-
 DEFAULT_PYTHON_VERSION = "3.7.3"
 if cmd_exists?('pyenv') && `pyenv versions`.include?(DEFAULT_PYTHON_VERSION)
+  puts '[Python]'.bold
   run_cmd(message: "Setting default version with pyenv to #{DEFAULT_PYTHON_VERSION.underline}") do
     set_xenv_global("pyenv", DEFAULT_PYTHON_VERSION)
   end
+  puts
 end
-puts
 
 ##
 ## Java
 ##
 
-puts '[Java]'.bold
 DEFAULT_JAVA_VERSION = "oracle64-11.0.1"
 if cmd_exists?('jenv') && `jenv versions`.include?(DEFAULT_JAVA_VERSION)
+  puts '[Java]'.bold
   run_cmd(message: "Setting default version with jenv to #{DEFAULT_JAVA_VERSION.underline}") do
     set_xenv_global("jenv", DEFAULT_JAVA_VERSION)
   end
+  puts
 end
-puts
 
 ##
 ## Node / JS
@@ -212,6 +211,7 @@ run_cmd(message: "Updating oh-my-zsh") do
     system('upgrade_oh_my_zsh')
   end
 end
+puts
 
 
 ##
@@ -240,7 +240,6 @@ puts
 ## Warnings
 ##
 
-puts
 if !cmd_exists?('pbcopy') && !cmd_exists?('xsel')
   puts "#{'*'.bold.red} You do not appear to have the #{'`pbcopy`'.italic} command, consider installing #{'`xsel`'.italic}."
 end
