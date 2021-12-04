@@ -12,14 +12,14 @@ function git_stash_count() {
 # Git prompt
 ZSH_THEME_GIT_PROMPT_PREFIX=" on "
 ZSH_THEME_GIT_PROMPT_SEPARATOR=""
-#ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[red]%}●"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}|$(git_stash_count)"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}|"
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[cyan]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="|%{$fg[red]%}%{✚ %G%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖ %G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎ %G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇ %G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆ %G%}"
+ZSH_THEME_GIT_PROMPT_STASHED="|%{$fg_bold[blue]%}%{⚑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="|%{$fg[yellow]%}%{✱%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="|%{$fg_bold[green]%}%{✔%G%}"
 
