@@ -1,5 +1,5 @@
 def cmd_exists?(cmd)
-  system("which #{cmd} > /dev/null")
+  system("command -v #{cmd} &> /dev/null")
 end
 
 def run_cmd(cmd = nil, message: nil, halt_on_error: false, &block)

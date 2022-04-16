@@ -1,0 +1,19 @@
+#!/bin/bash
+
+cmd="find -E \"$1\" -type f"
+case "$2" in
+    -a)
+        cmd="$cmd -iregex \".*\.(mp3|wav|mid|midi|aac|flac)\""
+        ;;
+    -d)
+        cmd="$cmd -iregex \".*\.(txt|rtf|doc|pdf|md)\""
+        ;;
+    -i)
+        cmd="$cmd -iregex \".*\.(jpg|jpeg|png|gif|webp|bmp)\""
+        ;;
+    -v)
+        cmd="$cmd -iregex \".*\.(mp4|mpeg|mpg|avi|mov|wmv)\""
+        ;;
+esac
+
+eval "$cmd -print0 | shuf -z -n 1 | xargs -r0 open"

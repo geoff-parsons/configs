@@ -17,7 +17,7 @@ export MANPATH="$MANPATH:/Applications/Xcode.app/Contents/Developer/usr/share/ma
 export LANG=en_US.UTF-8
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="skhisma"
-plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages encode64 emoji-clock battery jira)
+plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages encode64 jira)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 if [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
@@ -210,26 +210,6 @@ if [[ -x `which qlmanage` ]]; then
 fi
 
 if [[ -x `which open` ]]; then
-  function ropen() {
-    local cmd="find -E \"$1\" -type f"
-    case "$2" in
-        -a)
-            cmd="$cmd -iregex \".*\.(mp3|wav|mid|midi|aac|flac)\""
-            ;;
-        -d)
-            cmd="$cmd -iregex \".*\.(txt|rtf|doc|pdf|md)\""
-            ;;
-        -i)
-            cmd="$cmd -iregex \".*\.(jpg|jpeg|png|gif|webp|bmp)\""
-            ;;
-        -v)
-            cmd="$cmd -iregex \".*\.(mp4|mpeg|mpg|avi|mov|wmv)\""
-            ;;
-    esac
-
-    eval "$cmd -print0 | shuf -z -n 1 | xargs -r0 open"
-  }
-
   function man-preview() {
     man -t "$@" | open -f -a Preview
   }
