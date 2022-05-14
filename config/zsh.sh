@@ -1,4 +1,6 @@
 
+[ -z "$ZPROF" ] || zmodload zsh/zprof
+
 #######################
 ##       Paths       ##
 #######################
@@ -17,6 +19,7 @@ export MANPATH="$MANPATH:/Applications/Xcode.app/Contents/Developer/usr/share/ma
 export LANG=en_US.UTF-8
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="skhisma"
+ZSH_PYENV_QUIET=true
 plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages encode64 jira)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
@@ -67,10 +70,6 @@ if ! (which pbcopy > /dev/null); then
   if which xsel > /dev/null; then
     alias pbcopy="xsel --clipboard"
   fi
-fi
-
-if command -v brew 1>/dev/null 2>/dev/null; then
-  alias brews='brew list -1'
 fi
 
 if [[ -d '/Applications/VLC.app' ]]; then
@@ -186,12 +185,6 @@ export MAVEN_HOME="/usr/share/maven"
 # fi
 
 #######################
-##      Clojure      ##
-#######################
-
-export LEIN_ROOT="$HOME/.lein"
-
-#######################
 ##        Mac        ##
 #######################
 
@@ -214,3 +207,5 @@ if [[ -x `which open` ]]; then
     man -t "$@" | open -f -a Preview
   }
 fi
+
+[ -z "$ZPROF" ] || zprof

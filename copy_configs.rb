@@ -234,12 +234,3 @@ run_cmd(message: "Copying scripts to ~/bin") do
   FileUtils.chmod_R("+x", File.join(HOME_DIR, 'bin'))
 end
 puts
-
-
-##
-## Warnings
-##
-
-if !cmd_exists?('pbcopy') && !cmd_exists?('xsel')
-  puts "#{'*'.bold.red} You do not appear to have the #{'`pbcopy`'.italic} command, consider installing #{'`xsel`'.italic}."
-end
