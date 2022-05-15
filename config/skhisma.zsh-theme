@@ -1,7 +1,3 @@
-function battery_charge {
-    echo `$BAT_CHARGE` 2>/dev/null
-}
-
 function git_stash_count() {
   if [ $GIT_BRANCH != ""]; then
     count=$(git 2>/dev/null stash list | grep "${GIT_BRANCH}" | wc -l | awk '{print $1}')
@@ -14,11 +10,11 @@ ZSH_THEME_GIT_PROMPT_PREFIX=" on "
 ZSH_THEME_GIT_PROMPT_SEPARATOR=""
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}|"
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[cyan]%}"
-ZSH_THEME_GIT_PROMPT_STAGED="|%{$fg[red]%}%{✚ %G%}"
-ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖ %G%}"
-ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎ %G%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇ %G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆ %G%}"
+ZSH_THEME_GIT_PROMPT_STAGED="|%{$fg[red]%}%{✚%G%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎%G%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆%G%}"
 ZSH_THEME_GIT_PROMPT_STASHED="|%{$fg_bold[blue]%}%{⚑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="|%{$fg[yellow]%}%{✱%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="|%{$fg_bold[green]%}%{✔%G%}"
@@ -29,10 +25,10 @@ ZSH_THEME_RUBY_PROMPT_SUFFIX=""
 ZSH_THEME_XENV_PROMPT_PREFIX=" using "
 ZSH_THEME_XENV_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_XENV_PROMPT_SEP=" "
-ZSH_THEME_XENV_RUBY_ICON=$'RB'
-ZSH_THEME_XENV_PYTHON_ICON=$'PY'
-ZSH_THEME_XENV_JAVA_ICON=$'J'
-ZSH_THEME_XENV_NODE_ICON=$'N'
+ZSH_THEME_XENV_RUBY_ICON="RB"
+ZSH_THEME_XENV_PYTHON_ICON="PY"
+ZSH_THEME_XENV_JAVA_ICON="J"
+ZSH_THEME_XENV_NODE_ICON="N"
 ZSH_THEME_XENV_RBENV_PROMPT_PREFIX="%{$fg_bold[red]%}${ZSH_THEME_XENV_RUBY_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
 ZSH_THEME_XENV_NVM_PROMPT_PREFIX="%{$fg_bold[blue]%}${ZSH_THEME_XENV_NODE_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
 ZSH_THEME_XENV_PYENV_PROMPT_PREFIX="%{$fg_bold[green]%}${ZSH_THEME_XENV_PYTHON_ICON}%{$reset_color%}|%{$fg_bold[white]%}"
