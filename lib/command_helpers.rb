@@ -13,9 +13,12 @@ def run_cmd(cmd = nil, message: nil, halt_on_error: false, &block)
       yield
     end
   rescue Exception => e
-    puts " ✗".bold.red if message
-    puts "  Error: #{e.message}"
-    raise e
+    if message
+      puts " ✗".bold.red
+      puts "      #{'Error'.underline}: #{e.message}"
+    else
+      raise e
+    end
     exit 1 if halt_on_error
   else
     if result == 1
@@ -33,7 +36,6 @@ def set_xenv_global(command, version)
   elsif `#{command} versions --bare`.split.include?(version)
     system("#{command} global #{version}")
   else
-    puts "#{'*'.bold.red} Configs wants to set global #{command} version to #{version} but it is not installed."
-    raise RuntimeError
+    raise RuntimeError, "Configs wants to set global #{command} version to #{version} but it is not installed."
   end
 end

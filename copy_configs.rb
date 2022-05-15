@@ -1,11 +1,15 @@
 require 'fileutils'
 require 'etc'
-require './lib/string_colorize'
-require './lib/command_helpers'
+require_relative 'lib/string_colorize'
+require_relative 'lib/command_helpers'
 
-HOME_DIR = Etc.getpwuid.dir
 CONFIG_DIR = File.join( File.dirname(__FILE__), 'config' )
-TEXT_BROWSER = %w[links lynx].find { |cmd| cmd_exists?(cmd) }
+DEFAULT_JAVA_VERSION = "oracle64-11.0.1"
+DEFAULT_PYTHON_VERSION = "3.7.3"
+DEFAULT_RUBY_VERSION = IO.read(
+  File.join(File.dirname(__FILE__), ".ruby-version")
+).strip
+HOME_DIR = Etc.getpwuid.dir
 OS = case `uname`
        when /linux/i
          :linux
@@ -14,6 +18,7 @@ OS = case `uname`
        else
          :WTF
      end
+TEXT_BROWSER = %w[links lynx].find { |cmd| cmd_exists?(cmd) }
 
 
 ##
@@ -21,9 +26,7 @@ OS = case `uname`
 ##
 
 puts '[Ruby]'.bold
-
-DEFAULT_RUBY_VERSION = "2.6.5"
-if cmd_exists?('rbenv') && `rbenv versions`.include?(DEFAULT_RUBY_VERSION)
+if cmd_exists?('rbenv')
   run_cmd(message: "Setting default version with rbenv to #{DEFAULT_RUBY_VERSION.underline}") do
     set_xenv_global("rbenv", DEFAULT_RUBY_VERSION)
   end
@@ -44,8 +47,7 @@ puts
 ## Python
 ##
 
-DEFAULT_PYTHON_VERSION = "3.7.3"
-if cmd_exists?('pyenv') && `pyenv versions`.include?(DEFAULT_PYTHON_VERSION)
+if cmd_exists?('pyenv')
   puts '[Python]'.bold
   run_cmd(message: "Setting default version with pyenv to #{DEFAULT_PYTHON_VERSION.underline}") do
     set_xenv_global("pyenv", DEFAULT_PYTHON_VERSION)
@@ -57,8 +59,7 @@ end
 ## Java
 ##
 
-DEFAULT_JAVA_VERSION = "oracle64-11.0.1"
-if cmd_exists?('jenv') && `jenv versions`.include?(DEFAULT_JAVA_VERSION)
+if cmd_exists?('jenv')
   puts '[Java]'.bold
   run_cmd(message: "Setting default version with jenv to #{DEFAULT_JAVA_VERSION.underline}") do
     set_xenv_global("jenv", DEFAULT_JAVA_VERSION)
