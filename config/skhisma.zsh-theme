@@ -13,8 +13,8 @@ ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[cyan]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="|%{$fg[red]%}%{✚%G%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="|%{$fg[red]%}%{✖%G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="|%{$fg[yellow]%}%{✎%G%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆%G%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="|%{$fg[blue]%}%{⬇ %G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="|%{$fg[blue]%}%{⬆ %G%}"
 ZSH_THEME_GIT_PROMPT_STASHED="|%{$fg_bold[blue]%}%{⚑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="|%{$fg[yellow]%}%{✱%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="|%{$fg_bold[green]%}%{✔%G%}"
@@ -48,7 +48,7 @@ function xenv_prompt_info() {
   if [[ $+commands[rbenv] -eq 1 && -n "$(rbenv local 2>/dev/null)" ]]; then
     lang_versions+="${ZSH_THEME_XENV_RBENV_PROMPT_PREFIX}$(rbenv_prompt_info)"
   fi
-  if command -v jenv 1>/dev/null 2>&1; then
+  if command -v nvm 1>/dev/null 2>&1; then
     lang_versions+="${ZSH_THEME_XENV_NVM_PROMPT_PREFIX}$(nvm_prompt_info)"
   fi
   if [[ $+commands[pyenv] -eq 1 &&  -n "$(pyenv local 2>/dev/null)" ]]; then
