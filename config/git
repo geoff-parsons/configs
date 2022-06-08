@@ -16,6 +16,9 @@
 	# setup some default ignores
 	excludesfile = ~/.gitignore
 
+[init]
+	defaultBranch = main
+
 [color]
 	# use colour for everything if available
 	ui = auto
