@@ -36,7 +36,9 @@ if cmd_exists?('brew')
     FileUtils.copy( File.join(CONFIG_DIR, 'Brewfile'), File.join(HOME_DIR, '.Brewfile') )
   end
 
+  print "   Checking for Homebrew packages to install"
   if !system('brew bundle check --global &> /dev/null')
+    puts " !".bold.yellow
     run_cmd(
       'brew bundle --quiet --global --no-lock &> /dev/null',
       message: "Installing brew bundle"
@@ -50,7 +52,7 @@ if cmd_exists?('brew')
       end
     end
   else
-    puts "   No new Homebrew packages to install."
+    puts " ✔︎".bold.green
   end
   puts
 end
