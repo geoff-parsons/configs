@@ -273,17 +273,32 @@ puts
 
 puts '[scripts]'.bold
 
-unless File.exists?( File.join(HOME_DIR, 'bin') )
+home_bin_dir = File.join(HOME_DIR, 'bin')
+unless File.exists?(home_bin_dir)
   run_cmd(message: "Creating ~/bin") do
-    FileUtils.mkdir( File.join(HOME_DIR, 'bin') )
+    FileUtils.mkdir(home_bin_dir)
   end
 end
 
 run_cmd(message: "Copying scripts to ~/bin") do
   FileUtils.cp_r(
-    File.join(File.dirname(__FILE__), 'bin'),
-    File.join(HOME_DIR, 'bin')
+    Dir.glob( File.join(File.dirname(__FILE__), 'bin/*') ),
+    home_bin_dir
   )
-  FileUtils.chmod_R("+x", File.join(HOME_DIR, 'bin'))
 end
+
+missing_img_scripts = %w[divider imgls imgcat]  - Dir.new(home_bin_dir).entries
+if File.exists?('/Applications/iTerm.app/') && missing_img_scripts.size > 0
+  missing_img_scripts.each do |script|
+    run_cmd(
+      "curl \"https://iterm2.com/utilities/#{script}\" --silent > #{File.join(home_bin_dir, script)} 2> /dev/null",
+      message: "Downloading iTerm #{script.italic} script"
+    )
+  end
+end
+
+run_cmd(message: "Setting +x on scripts in ~/bin") do
+  FileUtils.chmod_R("+x", home_bin_dir)
+end
+
 puts
