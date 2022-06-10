@@ -1,4 +1,5 @@
 brew "gh"
+brew "git-delta"
 brew "htop"
 brew "jenv"
 brew "pyenv"
