@@ -18,8 +18,37 @@ OS = case `uname`
        else
          :WTF
      end
-TEXT_BROWSER = %w[links lynx].find { |cmd| cmd_exists?(cmd) }
 
+
+##
+## Homebrew
+##
+
+if cmd_exists?('brew')
+  puts '[Homebrew]'.bold
+
+  run_cmd(message: "Copying Brewfile") do
+    FileUtils.copy( File.join(CONFIG_DIR, 'Brewfile'), File.join(HOME_DIR, '.Brewfile') )
+  end
+
+  if !system('brew bundle check --global &> /dev/null')
+    run_cmd(
+      'brew bundle --quiet --global --no-lock &> /dev/null',
+      message: "Installing brew bundle"
+    )
+
+    brews = `brew bundle list --global --quiet 2> /dev/null`.split(/\s/)
+    if brews.size > 0
+      puts "   The following Homebrew packages have been installed:"
+      brews.sort.each do |brew|
+        puts "      #{'-'.bold} #{brew}"
+      end
+    end
+  else
+    puts "   No new Homebrew packages to install."
+  end
+  puts
+end
 
 ##
 ## Ruby
@@ -150,12 +179,6 @@ GITCONFIG
       file.puts "\n"
       file.puts config
     end
-  end
-end
-
-if TEXT_BROWSER
-  run_cmd(message: "#{('`' + TEXT_BROWSER + '`').italic} detected, setting as git browser") do
-    system('git config --global web.browser #{TEXT_BROWSER}')
   end
 end
 
