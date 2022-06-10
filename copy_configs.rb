@@ -11,14 +11,19 @@ DEFAULT_RUBY_VERSION = IO.read(
 ).strip
 HOME_DIR = Etc.getpwuid.dir
 OS = case `uname`
-       when /linux/i
-         :linux
-       when /darwin/i
-         :OSX
-       else
-         :WTF
+     when /linux/i
+       :linux
+     when /darwin/i
+       :OSX
+     else
+       :WTF
      end
-
+APPDATA_DIR = case OS
+              when :linux
+                File.join(HOME_DIR, '.config/')
+              when :OSX
+                File.join(HOME_DIR, 'Library/Application Support/')
+              end
 
 ##
 ## Homebrew
@@ -115,18 +120,40 @@ end
 
 if File.exists?('/Applications/Sublime Text.app')
   puts '[SublimeText]'.bold
+
+  sublime_config_dir = ['Sublime Text 3', 'Sublime Text', 'sublime-text-3'].map { |dir|
+    File.join(APPDATA_DIR, dir)
+  }.find { |dir|
+    File.exists?(dir)
+  }
+  raise "Sublime Text preferences directory could not be found." unless sublime_config_dir
+
   run_cmd(message: "Linking #{'`subl`'.italic} command") do
-    FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', :force => true)
+    FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', force: true)
   end
-  run_cmd(message: "Copying SublimeText config") do
-    if File.exists?( File.join(HOME_DIR, 'Library/Application Support/Sublime Text/') )
-      FileUtils.copy( File.join(CONFIG_DIR, 'sublime.json'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text/Packages/User/Preferences.sublime-settings') )
-    elsif File.exists?( File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/') )
-      FileUtils.copy( File.join(CONFIG_DIR, 'sublime.json'), File.join(HOME_DIR, 'Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings') )
-    else
-      raise "Sublime Text preferences directory could not be found."
-    end
+
+  run_cmd(message: "Copying SublimeText configs") do
+    FileUtils.copy(
+      File.join(CONFIG_DIR, 'sublime/Package Control.sublime-settings'),
+      File.join(sublime_config_dir, 'Packages/User/Package Control.sublime-settings')
+    )
+
+    FileUtils.copy(
+      File.join(CONFIG_DIR, 'sublime/Preferences.sublime-settings'),
+      File.join(sublime_config_dir, 'Packages/User/Preferences.sublime-settings')
+    )
+
+    FileUtils.copy(
+      File.join(CONFIG_DIR, 'sublime/Bash.sublime-settings'),
+      File.join(sublime_config_dir, 'Packages/User/Bash.sublime-settings')
+    )
+
+    FileUtils.copy(
+      File.join(CONFIG_DIR, 'sublime/JavaProperties.sublime-settings'),
+      File.join(sublime_config_dir, 'Packages/User/JavaProperties.sublime-settings')
+    )
   end
+
   puts
 end
 

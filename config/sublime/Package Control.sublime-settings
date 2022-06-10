@@ -1,0 +1,17 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Babel",
+		"Package Control",
+		"plist",
+		"Sass",
+		"TrailingSpaces",
+		"TypeScript",
+		"ZenScript",
+		"ZSH",
+	],
+}
