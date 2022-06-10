@@ -1,4 +1,6 @@
 #!/bin/bash
+# Uses iTerm2's custom escape codes to set tab color
+# For more info see: https://iterm2.com/documentation-escape-codes.html
 case "$1" in
   default)
     echo -n -e "\033]6;1;bg;*;default\a"

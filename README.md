@@ -1,22 +1,30 @@
-Various config files to keep from having to manage them separately. Fairly heavily OS X-oriented.
+Various config files to keep from having to manage them separately. Fairly heavily MacOS-oriented.
 
-Setup
-============
+## Prerequisites
 
-1. Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh).
+* Ruby
+* zsh
+* [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+* (Optional) [Homebrew](https://brew.sh) - Highly recommended if on MacOS.
 
-2. Clone this repository:
+
+
+## Setup
+
+
+1. Clone this repository:
 
   ```git clone git://github.com/skhisma/configs.git ~/Configs```
 
-3. Run the copy_configs.rb script:
+2. Run the copy_configs.rb script:
   
   ```ruby ~/Configs/copy_configs.rb```
 
 And you should be good to go.
 
 
-Notes
-=====
+## Notes
 
-The `copy_configs` script does its best to only copy needed configs over and in some cases will recommend installing various packages. It's not perfect however.
+The `copy_configs` script does its best to only copy needed configs over and in some cases will recommend installing various packages. It's not perfect.
+
+Please review `copy_configs` before running as it does _a lot_ up to and including installing Homebrew packages if required. Not everything may be desired.

@@ -1,5 +1,7 @@
 #!/bin/bash
-
+# Opens a random file from a directory. It will search in sub-directories as well.
+# An optional second parameter lets you specific a file type (based on extension)
+#    Usage: ropen ~/Music -a
 cmd="find -E \"$1\" -type f"
 case "$2" in
     -a)
