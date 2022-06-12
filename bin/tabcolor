@@ -1,20 +1,25 @@
 #!/bin/bash
+
 # Uses iTerm2's custom escape codes to set tab color
 # For more info see: https://iterm2.com/documentation-escape-codes.html
-case "$1" in
-  default)
-    echo -n -e "\033]6;1;bg;*;default\a"
-    ;;
-  blue)
-    echo -n -e "\033]6;1;bg;red;brightness;103\a\033]6;1;bg;green;brightness;216\a\033]6;1;bg;blue;brightness;239\a"
-    ;;
-  green)
-    echo -n -e "\033]6;1;bg;red;brightness;121\a\033]6;1;bg;green;brightness;245\a\033]6;1;bg;blue;brightness;86\a"
-    ;;
-  red)
-    echo -n -e "\033]6;1;bg;red;brightness;249\a\033]6;1;bg;green;brightness;36\a\033]6;1;bg;blue;brightness;114\a"
-    ;;
-  yellow)
-    echo -n -e "\033]6;1;bg;red;brightness;231\a\033]6;1;bg;green;brightness;219\a\033]6;1;bg;blue;brightness;116\a"
-    ;;
-esac
+if [ $# -gt 1 ]; then
+  echo -n -e "\033]6;1;bg;red;brightness;$1\a\033]6;1;bg;green;brightness;$2\a\033]6;1;bg;blue;brightness;$3\a"
+else
+  case "$1" in
+    default)
+      echo -n -e "\033]6;1;bg;*;default\a"
+      ;;
+    blue)
+      echo -n -e "\033]6;1;bg;red;brightness;103\a\033]6;1;bg;green;brightness;216\a\033]6;1;bg;blue;brightness;239\a"
+      ;;
+    green)
+      echo -n -e "\033]6;1;bg;red;brightness;121\a\033]6;1;bg;green;brightness;245\a\033]6;1;bg;blue;brightness;86\a"
+      ;;
+    red)
+      echo -n -e "\033]6;1;bg;red;brightness;249\a\033]6;1;bg;green;brightness;36\a\033]6;1;bg;blue;brightness;114\a"
+      ;;
+    yellow)
+      echo -n -e "\033]6;1;bg;red;brightness;231\a\033]6;1;bg;green;brightness;219\a\033]6;1;bg;blue;brightness;116\a"
+      ;;
+  esac
+fi
