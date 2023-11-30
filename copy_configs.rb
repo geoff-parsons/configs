@@ -10,6 +10,7 @@ DEFAULT_RUBY_VERSION = IO.read(
   File.join(File.dirname(__FILE__), ".ruby-version")
 ).strip
 HOME_DIR = Etc.getpwuid.dir
+HOME_BIN_DIR = File.join(HOME_DIR, 'bin')
 OS = case `uname`
      when /linux/i
        :linux
@@ -31,6 +32,11 @@ APPDATA_DIR = case OS
 
 if cmd_exists?('brew') || File.exist?('/opt/homebrew')
   puts '[Homebrew]'.bold
+
+  run_cmd(
+    "brew update --system &> /dev/null",
+    message: "Updating homebrew"
+  )
 
   run_cmd(message: "Copying Brewfile") do
     FileUtils.copy( File.join(CONFIG_DIR, 'Brewfile'), File.join(HOME_DIR, '.Brewfile') )
@@ -56,6 +62,44 @@ if cmd_exists?('brew') || File.exist?('/opt/homebrew')
   end
   puts
 end
+
+
+##
+## ~/bin
+##
+
+puts '[scripts]'.bold
+
+
+unless File.exist?(HOME_BIN_DIR)
+  run_cmd(message: "Creating ~/bin") do
+    FileUtils.mkdir(HOME_BIN_DIR)
+  end
+end
+
+run_cmd(message: "Copying scripts to ~/bin") do
+  FileUtils.cp_r(
+    Dir.glob( File.join(File.dirname(__FILE__), 'bin/*') ),
+    HOME_BIN_DIR
+  )
+end
+
+missing_img_scripts = %w[imgls imgcat]  - Dir.new(HOME_BIN_DIR).entries
+if File.exist?('/Applications/iTerm.app/') && missing_img_scripts.size > 0
+  missing_img_scripts.each do |script|
+    run_cmd(
+      "curl \"https://iterm2.com/utilities/#{script}\" --silent > #{File.join(HOME_BIN_DIR, script)} 2> /dev/null",
+      message: "Downloading iTerm #{script.italic} script"
+    )
+  end
+end
+
+run_cmd(message: "Setting +x on scripts in ~/bin") do
+  FileUtils.chmod_R("+x", HOME_BIN_DIR)
+end
+
+puts
+
 
 ##
 ## Ruby
@@ -166,8 +210,12 @@ if File.exist?('/Applications/Sublime Text.app') && sublime_config_dir
   puts '[SublimeText]'.bold
 
   run_cmd(message: "Linking #{'`subl`'.italic} command") do
-    FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', force: true)
-  end unless File.exist?('/usr/local/bin/subl')
+    FileUtils.ln_s(
+      '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl',
+      File.join(HOME_BIN_DIR, 'subl'),
+      force: true
+    )
+  end unless cmd_exists?('subl')
 
   run_cmd(message: "Copying SublimeText configs") do
     FileUtils.copy(
@@ -188,6 +236,37 @@ if File.exist?('/Applications/Sublime Text.app') && sublime_config_dir
     FileUtils.copy(
       File.join(CONFIG_DIR, 'sublime/JavaProperties.sublime-settings'),
       File.join(sublime_config_dir, 'Packages/User/JavaProperties.sublime-settings')
+    )
+  end
+
+  puts
+end
+
+
+##
+## VS Code
+##
+
+if File.exist?('/Applications/Visual Studio Code.app')
+  puts "[VSCode]".bold
+
+  run_cmd(message: "Linking #{'`code`'.italic} command") do
+    FileUtils.ln_s(
+      '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
+      File.join(HOME_BIN_DIR, 'code'),
+      force: true
+    )
+  end unless cmd_exists?('code')
+
+  puts "   Installing extensions..."
+  {
+    'eamodio.gitlens' => 'Git Lens',
+    'esbenp.prettier-vscode' => 'Prettier'
+  }.each do |ext, name|
+    run_cmd(
+      "code --install-extension #{ext} 2> /dev/null &> /dev/null",
+      message: name,
+      indent: 2
     )
   end
 
@@ -286,38 +365,3 @@ end
 puts
 
 
-##
-## ~/bin
-##
-
-puts '[scripts]'.bold
-
-home_bin_dir = File.join(HOME_DIR, 'bin')
-unless File.exist?(home_bin_dir)
-  run_cmd(message: "Creating ~/bin") do
-    FileUtils.mkdir(home_bin_dir)
-  end
-end
-
-run_cmd(message: "Copying scripts to ~/bin") do
-  FileUtils.cp_r(
-    Dir.glob( File.join(File.dirname(__FILE__), 'bin/*') ),
-    home_bin_dir
-  )
-end
-
-missing_img_scripts = %w[divider imgls imgcat]  - Dir.new(home_bin_dir).entries
-if File.exist?('/Applications/iTerm.app/') && missing_img_scripts.size > 0
-  missing_img_scripts.each do |script|
-    run_cmd(
-      "curl \"https://iterm2.com/utilities/#{script}\" --silent > #{File.join(home_bin_dir, script)} 2> /dev/null",
-      message: "Downloading iTerm #{script.italic} script"
-    )
-  end
-end
-
-run_cmd(message: "Setting +x on scripts in ~/bin") do
-  FileUtils.chmod_R("+x", home_bin_dir)
-end
-
-puts

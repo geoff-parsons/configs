@@ -2,10 +2,10 @@ def cmd_exists?(cmd)
   system("command -v #{cmd} &> /dev/null")
 end
 
-def run_cmd(cmd = nil, message: nil, halt_on_error: false, &block)
+def run_cmd(cmd = nil, message: nil, indent: 1, halt_on_error: false, &block)
   return if cmd == nil && block == nil
 
-  print "   #{message}" if message
+  print "#{'   ' * indent}#{message}" if message
   begin
     result = if cmd
       system(cmd)
@@ -15,7 +15,7 @@ def run_cmd(cmd = nil, message: nil, halt_on_error: false, &block)
   rescue Exception => e
     if message
       puts " ✗".bold.red
-      puts "      #{'Error'.underline}: #{e.message}"
+      puts "#{'   ' * (indent + 2)}#{'Error'.underline}: #{e.message}"
     else
       raise e
     end
