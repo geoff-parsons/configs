@@ -4,8 +4,8 @@ require_relative 'lib/string_colorize'
 require_relative 'lib/command_helpers'
 
 CONFIG_DIR = File.join( File.dirname(__FILE__), 'config' )
-DEFAULT_JAVA_VERSION = "oracle64-11.0.1"
-DEFAULT_PYTHON_VERSION = "3.7.3"
+DEFAULT_NODE_VERSION = "v21.2.0"
+DEFAULT_PYTHON_VERSION = "3.10.4"
 DEFAULT_RUBY_VERSION = IO.read(
   File.join(File.dirname(__FILE__), ".ruby-version")
 ).strip
@@ -29,7 +29,7 @@ APPDATA_DIR = case OS
 ## Homebrew
 ##
 
-if cmd_exists?('brew')
+if cmd_exists?('brew') || File.exist?('/opt/homebrew')
   puts '[Homebrew]'.bold
 
   run_cmd(message: "Copying Brewfile") do
@@ -63,6 +63,14 @@ end
 
 puts '[Ruby]'.bold
 if cmd_exists?('rbenv')
+
+  if `rbenv versions 2> /dev/null | grep #{DEFAULT_RUBY_VERSION}`.strip == ''
+    run_cmd(
+      "rbenv install --skip-existing #{DEFAULT_RUBY_VERSION} &> /dev/null",
+      message: "Installing ruby version #{DEFAULT_RUBY_VERSION.underline}"
+    )
+  end
+
   run_cmd(message: "Setting default version with rbenv to #{DEFAULT_RUBY_VERSION.underline}") do
     set_xenv_global("rbenv", DEFAULT_RUBY_VERSION)
   end
@@ -85,9 +93,18 @@ puts
 
 if cmd_exists?('pyenv')
   puts '[Python]'.bold
+
+  if `pyenv versions | grep #{DEFAULT_PYTHON_VERSION}`.strip == ''
+    run_cmd(
+      "pyenv install #{DEFAULT_PYTHON_VERSION} &> /dev/null",
+      message: "Installing python version #{DEFAULT_PYTHON_VERSION.underline}"
+    )
+  end
+
   run_cmd(message: "Setting default version with pyenv to #{DEFAULT_PYTHON_VERSION.underline}") do
     set_xenv_global("pyenv", DEFAULT_PYTHON_VERSION)
   end
+
   puts
 end
 
@@ -95,23 +112,43 @@ end
 ## Java
 ##
 
-if cmd_exists?('jenv')
-  puts '[Java]'.bold
-  run_cmd(message: "Setting default version with jenv to #{DEFAULT_JAVA_VERSION.underline}") do
-    set_xenv_global("jenv", DEFAULT_JAVA_VERSION)
-  end
-  puts
-end
+# if cmd_exists?('jenv')
+#   puts '[Java]'.bold
+#   run_cmd(message: "Setting default version with jenv to #{DEFAULT_JAVA_VERSION.underline}") do
+#     set_xenv_global("jenv", DEFAULT_JAVA_VERSION)
+#   end
+#   puts
+# end
 
 ##
 ## Node / JS
 ##
 
-unless File.exist?( File.join(HOME_DIR, '.nvm') )
+def nvm(cmd, message: nil)
+  run_cmd(
+    %{
+      . #{File.join(HOME_DIR, '.nvm', 'nvm.sh')}
+      #{cmd}
+    },
+    message: message
+  )
+end
+
+if File.exist?( File.join(HOME_DIR, '.nvm', 'nvm.sh') )
   puts '[Node]'.bold
-  run_cmd(message: "Creating nvm config directory") do
-    FileUtils.mkdir( File.join(HOME_DIR, '.nvm') )
+
+  if `. #{File.join(HOME_DIR, '.nvm', 'nvm.sh')}; nvm list --no-colors | grep #{DEFAULT_NODE_VERSION}`.strip == ''
+    nvm(
+      "nvm install --no-progress #{DEFAULT_NODE_VERSION} &> /dev/null",
+      message: "Installing node version #{DEFAULT_NODE_VERSION.underline}"
+    )
   end
+
+  nvm(
+    "nvm alias default #{DEFAULT_NODE_VERSION} &> /dev/null",
+    message: "Setting default version with nvm to #{DEFAULT_NODE_VERSION.underline}"
+  )
+
   puts
 end
 
@@ -120,19 +157,17 @@ end
 ## SublimeText
 ##
 
-if File.exists?('/Applications/Sublime Text.app')
+sublime_config_dir = ['Sublime Text 3', 'Sublime Text', 'sublime-text-3'].map { |dir|
+  File.join(APPDATA_DIR, dir)
+}.find { |dir|
+  File.exist?(dir)
+}
+if File.exist?('/Applications/Sublime Text.app') && sublime_config_dir
   puts '[SublimeText]'.bold
-
-  sublime_config_dir = ['Sublime Text 3', 'Sublime Text', 'sublime-text-3'].map { |dir|
-    File.join(APPDATA_DIR, dir)
-  }.find { |dir|
-    File.exists?(dir)
-  }
-  raise "Sublime Text preferences directory could not be found." unless sublime_config_dir
 
   run_cmd(message: "Linking #{'`subl`'.italic} command") do
     FileUtils.ln_s('/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl', '/usr/local/bin/subl', force: true)
-  end
+  end unless File.exist?('/usr/local/bin/subl')
 
   run_cmd(message: "Copying SublimeText configs") do
     FileUtils.copy(
@@ -163,9 +198,9 @@ end
 ##
 ## iTerm
 ##
-if File.exists?('/Applications/iTerm.app/')
+if File.exist?('/Applications/iTerm.app/')
   puts '[iTerm]'.bold
-  unless File.exists?(File.join(HOME_DIR, '.iterm2'))
+  unless File.exist?(File.join(HOME_DIR, '.iterm2'))
     run_cmd(message: "Creating iTerm config directory") do
       FileUtils.mkdir( File.join(HOME_DIR, '.iterm2') )
     end
@@ -218,22 +253,6 @@ puts
 
 
 ##
-## Subversion
-##
-
-puts '[svn]'.bold
-unless File.exists?( File.join(HOME_DIR, '.subversion') )
-  run_cmd(message: "Creating svn config directory") do
-    FileUtils.mkdir( File.join(HOME_DIR, '.subversion') )
-  end
-end
-run_cmd(message: "Copying svn config") do
-  FileUtils.copy( File.join(CONFIG_DIR, 'subversion'), File.join(HOME_DIR, '.subversion/config') )
-end
-puts
-
-
-##
 ## tmux
 ##
 
@@ -252,7 +271,7 @@ puts '[zsh]'.bold
 run_cmd(message: "Copying zsh config") do
   FileUtils.copy( File.join(CONFIG_DIR, 'zsh.sh'), File.join(HOME_DIR, '.zshrc') )
 end
-if File.exists?( File.join(HOME_DIR, '.oh-my-zsh') )
+if File.exist?( File.join(HOME_DIR, '.oh-my-zsh') )
   run_cmd(message: "Copying zsh theme") do
     FileUtils.copy( File.join(CONFIG_DIR, 'skhisma.zsh-theme'), File.join(HOME_DIR, '.oh-my-zsh/themes/skhisma.zsh-theme') )
   end
@@ -274,7 +293,7 @@ puts
 puts '[scripts]'.bold
 
 home_bin_dir = File.join(HOME_DIR, 'bin')
-unless File.exists?(home_bin_dir)
+unless File.exist?(home_bin_dir)
   run_cmd(message: "Creating ~/bin") do
     FileUtils.mkdir(home_bin_dir)
   end
@@ -288,7 +307,7 @@ run_cmd(message: "Copying scripts to ~/bin") do
 end
 
 missing_img_scripts = %w[divider imgls imgcat]  - Dir.new(home_bin_dir).entries
-if File.exists?('/Applications/iTerm.app/') && missing_img_scripts.size > 0
+if File.exist?('/Applications/iTerm.app/') && missing_img_scripts.size > 0
   missing_img_scripts.each do |script|
     run_cmd(
       "curl \"https://iterm2.com/utilities/#{script}\" --silent > #{File.join(home_bin_dir, script)} 2> /dev/null",

@@ -7,7 +7,11 @@
 
 export PATH=".:${HOME}/bin:/usr/local/sbin:$PATH"
 
-export MANPATH="/usr/local/share/man:/usr/share/man:/usr/local/man:$MANPATH"
+if [[ -f '/opt/homebrew/bin/brew' ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+export MANPATH="/opt/homebrew/share/man:/usr/local/share/man:/usr/share/man:/usr/local/man:$MANPATH"
 # Developer tool's bin
 export MANPATH="$MANPATH:/Applications/Xcode.app/Contents/Developer/usr/share/man"
 
