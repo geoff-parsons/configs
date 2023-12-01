@@ -27,7 +27,9 @@ ZSH_PYENV_QUIET=true
 plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages encode64 jira)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
-if [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
+if [[ -d '/opt/homebrew/share/zsh-syntax-highlighting' ]]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -d '/usr/local/share/zsh-syntax-highlighting' ]]; then
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
