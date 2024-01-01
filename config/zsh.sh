@@ -24,7 +24,7 @@ export LANG=en_US.UTF-8
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="skhisma"
 ZSH_PYENV_QUIET=true
-plugins=(rails gem git-prompt jenv pyenv rbenv colored-man-pages encode64 jira)
+plugins=(rails gem git-prompt gh jenv nvm pyenv rbenv colored-man-pages encode64 jira)
 DISABLE_AUTO_UPDATE="true"
 source $ZSH/oh-my-zsh.sh
 if [[ -d '/opt/homebrew/share/zsh-syntax-highlighting' ]]; then
@@ -41,6 +41,8 @@ autoload -Uz compinit
 compinit
 # Allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
+# kubectl completion
+source <(kubectl completion zsh)
 
 autoload -Uz colors
 colors
@@ -129,6 +131,7 @@ fi
 alias bx="bundle exec"
 # allows square brackts for rake task invocation
 alias rake="noglob rake"
+unsetopt nomatch
 
 # Handled by the rbenv oh my zsh plugin...
 # if command -v rbenv 1>/dev/null 2>&1; then
@@ -156,25 +159,27 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# auto-run `nvm use` whenever .nvmrc is detected
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+zstyle ':omz:plugins:nvm' autoload yes
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version="$(cat "${nvmrc_path}")"
+# # auto-run `nvm use` whenever .nvmrc is detected
+# load-nvmrc() {
+#   local node_version="$(nvm version)"
+#   local nvmrc_path="$(nvm_find_nvmrc)"
 
-    if [ $(nvm version "$nvmrc_node_version") = "N/A" ]; then
-      echo "You do not have the version of node specified in .nvmrc installed ($nvmrc_node_version)"
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use --silent
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    nvm use --silent default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+#   if [ -n "$nvmrc_path" ]; then
+#     local nvmrc_node_version="$(cat "${nvmrc_path}")"
+
+#     if [ $(nvm version "$nvmrc_node_version") = "N/A" ]; then
+#       echo "You do not have the version of node specified in .nvmrc installed ($nvmrc_node_version)"
+#     elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#       nvm use --silent
+#     fi
+#   elif [ "$node_version" != "$(nvm version default)" ]; then
+#     nvm use --silent default
+#   fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc
 
 #######################
 ##        Java       ##
