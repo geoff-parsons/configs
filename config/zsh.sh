@@ -195,6 +195,15 @@ export MAVEN_HOME="/usr/share/maven"
 #   eval "$(jenv init -)"
 # fi
 
+
+#######################
+##        Rust       ##
+#######################
+
+if [[ -f $HOME/.cargo/env ]]; then
+  . "$HOME/.cargo/env"
+fi
+
 #######################
 ##        Mac        ##
 #######################
